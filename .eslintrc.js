@@ -9,6 +9,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@docusaurus/recommended',
+    'plugin:prettier/recommended',
   ],
   overrides: [
     {
@@ -29,6 +30,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-var-requires': 'off',
     '@docusaurus/string-literal-i18n-messages': 'error',
     '@docusaurus/no-untranslated-text': 'warn',
