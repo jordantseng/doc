@@ -242,6 +242,7 @@ log(); // undefined
    const person = {
      name: 'jordan',
      print() {
+       /* eslint-disable */
        const that = this;
        setTimeout(function () {
          console.log(that.name);

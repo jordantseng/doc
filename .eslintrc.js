@@ -9,12 +9,12 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@docusaurus/recommended',
+    'plugin:markdown/recommended',
     'plugin:prettier/recommended',
   ],
   overrides: [
     {
       files: ['*.md', '*.mdx'],
-      extends: ['plugin:mdx/recommended'],
       // optional, if you want to lint code blocks at the same time
       settings: {
         'mdx/code-blocks': true,
@@ -22,6 +22,10 @@ module.exports = {
         // if you want to override the default language mapper inside, you can provide your own
         'mdx/language-mapper': {},
       },
+    },
+    {
+      files: ['*.mdx'],
+      extends: ['plugin:mdx/recommended'],
     },
   ],
   parser: '@typescript-eslint/parser',
