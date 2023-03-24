@@ -1,7 +1,5 @@
 # this
 
-Created: September 11, 2021 10:15 AM
-
 ### TL;DR
 
 - `this`就是呼叫這個函式的物件
