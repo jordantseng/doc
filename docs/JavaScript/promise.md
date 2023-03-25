@@ -2,60 +2,57 @@
 
 ### TL;DR
 
-- 使用 Promise 可以減少 callback hell，讓程式碼可讀性更高
-- Promise 是一個**等待非同步操作完成的物件，**Promise 物件只會處於 `pending` 、 `fulfilled` 、 `rejected` 其中一種狀態
+- 使用 Promise 可以減少 callback hell，提高程式碼可讀性
+- Promise 是一個**等待非同步操作完成的物件，**Promise 只會處於 `pending` 、 `fulfilled` 、 `rejected` 其中一種狀態
 
 ### 為什麼要使用 Promise
 
-在了解什麼是 Promise 之前，我們需要先知道為什麼需要使用 Promise
+在了解什麼是 Promise 之前，我們需要先知道為什麼需要使用 Promise 🤔
 
-在 ES6 以前，在 JavaScript 處理異步的方式大多都是透過回調函式的寫法（callback），但 callback 的寫法存在一個很大的缺點，當需要處理多個異步操作時，程式碼的可讀性會變得非常差，也常被稱為「callback 地獄」（callback hell）
+在 ES6 以前，在 JavaScript 處理異步的方式大多都是透過回調函式（callback）的寫法，但 callback 的寫法存在一個很大的問題，當需要處理多個異步操作時，程式碼會不斷往內嵌套，導致程可讀性非常差，也被稱為「callback 地獄」（callback hell）
 
 ```jsx
-const useCallback = (cb, time) => {
+const waitOneSecond = (cb) => {
   setTimeout(() => {
     cb();
-  }, time);
+  }, 1000);
 };
 
-useCallback(() => {
-  console.log('!');
-  useCallback(() => {
-    console.log('?');
-    useCallback(() => {
-      console.log('~');
-    }, 3000);
-  }, 2000);
-}, 1000);
-
-// 1秒後印出'!'
-// 再2秒後印出'?'
-// 再3秒後印出'~'
-// 總共經過了6秒
+// 程式碼不斷往內嵌套，可讀性不佳
+waitOneSecond(() => {
+  console.log('1 sec passed');
+  waitOneSecond(() => {
+    console.log('2 sec passed');
+    waitOneSecond(() => {
+      console.log('3 sec passed');
+    });
+  });
+});
 ```
 
 雖然還沒介紹什麼是 Promise，但是如果我們先把上面這段程式碼改寫成 Promise 寫法的話，可以發現可讀性大大的提升
 
 ```jsx
-const usePromise = (time) => {
-  return new Promise((resolve, reject) => {
+const waitOneSecond = () => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve();
-    }, time);
+    }, 1000);
   });
 };
 
-usePromise(1000)
+// 程式碼維持一層嵌套，較容易閱讀
+waitOneSecond()
   .then(() => {
-    console.log('!');
-    return usePromise(2000);
+    console.log('1 sec passed');
+    return waitOneSecond();
   })
   .then(() => {
-    console.log('?');
-    return usePromise(3000);
+    console.log('2 sec passed');
+    return waitOneSecond();
   })
   .then(() => {
-    console.log('~');
+    console.log('3 sec passed');
   });
 ```
 
@@ -63,7 +60,7 @@ usePromise(1000)
 
 Promise 是一個**等待非同步操作完成的物件**，當事件完成時，Promise 根據操作結果是成功、或者失敗，做相對應的處理動作
 
-Promise 物件只會處於下面三種狀態之一：
+Promise 只會處於下面三種狀態之一：
 
 1.  `pending` - 初始狀態（進行中）
 2.  `fulfilled` - 事件已完成
@@ -71,16 +68,16 @@ Promise 物件只會處於下面三種狀態之一：
 
 **怎麼使用 Promise**
 
-Promise 是一個**建構函式**，我們需要透過 `new` 關鍵字建立一個 Promise。而 Promise 會接收一個函式作為參數，這個函式又稱為 executor，其包含了兩個函式參數
+建立一個 Promise，我們會使用 Promise 的**建構函式**，透過 `new` 建立。Promise 建構函式會接收一個函式作為參數，這個函式又稱為 executor，其包含了兩個函式參數
 
-1. **resolve(value)**：如下方所示，當 randomNum 是偶數時，會呼叫 `resolve` 並回傳 ‘isEven’，Promise 被 `fulfilled` ，事件已完成。
-2. **reject(error)**：如下方所示，當 randomNum 是奇數時，會呼叫 `reject` 並回傳 ‘isOdd’，Promise 被 `rejected` ，事件已失敗。
+1. **resolve(value)**：如下方所示，當 randomNum 是偶數時，會呼叫 `resolve` 並回傳 isEven，Promise 被 `fulfilled` ，事件已完成。
+2. **reject(error)**：如下方所示，當 randomNum 是奇數時，會呼叫 `reject` 並回傳 isOdd，Promise 被 `rejected` ，事件已失敗。
 
-Promise 物件提供了三個主要的方法：
+Promise 提供了三個主要的方法：
 
-1. **then(fulfilledFn, rejectedFn)：**當 Promise 被 `fulfilled` 後，呼叫 fulfilledFn、當 Promise 被 `rejected` 後，呼叫 rejectedFn，並回傳一個新的 **fulfilled** Promise 物件
-2. **catch(rejectedFn)：**當 Promise 被 `rejected` 後，呼叫 rejectedFn，並回傳一個新的 **fulfilled** Promise 物件
-3. **finally(callback)：**不論 Promise 被 `fulfilled` 或 `rejected` ，都會呼叫 callback，並回傳一個新的 **fulfilled 或 reject** Promise 物件
+1. **then(fulfilledFn, rejectedFn)：**當 Promise 被 `fulfilled` 後，呼叫 fulfilledFn、當 Promise 被 `rejected` 後，呼叫 rejectedFn，並回傳一個新的 **fulfilled** Promise
+2. **catch(rejectedFn)：**當 Promise 被 `rejected` 後，呼叫 rejectedFn，並回傳一個新的 **fulfilled** Promise
+3. **finally(callback)：**不論 Promise 被 `fulfilled` 或 `rejected` ，都會呼叫 callback，並回傳一個新的 **fulfilled 或 reject** 的 Promise
 
 ```jsx
 new Promise((resolve, reject) => {
@@ -106,7 +103,7 @@ new Promise((resolve, reject) => {
 
 ### Promise.race(promises)
 
-將多個 Promise 物件包裝成一個新的 Promise 物件，並回傳**一個狀態最快改變**的結果
+將多個 Promise 包裝成一個新的 Promise，並回傳**一個狀態最快改變**的結果
 
 ```jsx
 const p1 = new Promise((resolve, reject) => {
@@ -127,7 +124,7 @@ Promise.race([p1, p2])
 
 ### Promise.any(promises)
 
-將多個 Promise 物件包裝成一個新的 Promise 物件，並回傳**一個狀態最快被 `resolve` **的結果， 如果全部 Promise 物件都被 `reject` ，則回傳 `AggregateError`
+將多個 Promise 包裝成一個新的 Promise，並回傳**一個狀態最快被 `fulfilled` **的結果， 如果全部 Promise 都被 `rejected` ，則回傳 `AggregateError`
 
 ```jsx
 const p1 = new Promise((resolve, reject) => {
@@ -144,7 +141,7 @@ Promise.any([p1, p2]).then(function (value) {
 
 ### Promise.all(promises)
 
-將多個 Promise 物件包裝成一個新的 Promise 物件，當**所有**的 Promise 物件被 `resolve` 後，回傳一個**陣列依序包含各 Promise 物件 `resolve` 後的值**，但是當其中一個 Promise 物件被 `reject` 後，則回傳該 Promise 被 `reject` 的值
+將多個 Promise 包裝成一個新的 Promise，當**所有**的 Promise 被 `fulfilled` 後，回傳一個**陣列依序包含各 Promise `fulfilled` 後的值**，但是當其中一個 Promise 被 `rejected` 後，則回傳該 Promise 被 `rejected` 的值
 
 ```jsx
 const p1 = Promise.resolve(1);
@@ -175,7 +172,7 @@ Promise.all([p1, p2])
 
 ### Promise.allSettled(promises)
 
-將多個 Promise 物件包裝成一個新的 Promise 物件，當**所有**的 Promise 物件**狀態改變**後，回傳一個**陣列依序包含各 Promise 物件的狀態和值**
+將多個 Promise 包裝成一個新的 Promise，當**所有**的 Promise **狀態改變**後，回傳一個**陣列依序包含各 Promise 的狀態和值**
 
 ```jsx
 const p1 = Promise.resolve(1);
@@ -197,11 +194,11 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
 
 ### Promise.resolve(value)
 
-將一個物件轉型為 Promise(如果它不是一個 Promise 物件)，然後立刻 `resolve` 它
+將一個物件轉型為 `fulfilled` 的 Promise（如果它不是一個 Promise）
 
 ### Promise.reject(reason)
 
-將一個物件轉型為 Promise(如果它不是一個 Promise 物件)，然後立刻 `reject` 它
+將一個物件轉型為 `rejected` 的 Promise（如果它不是一個 Promise）
 
 ### 常見問題
 
@@ -223,8 +220,10 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
 
    **Answer:**
 
+   呼叫 Promise 建構函式，executor 將會被立即執行
+
    ```jsx
-   // 1 呼叫Promise建構函式，立即執行 executor
+   // 1
    // 2
    // 4
    // 3
@@ -246,7 +245,7 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
    ```
 
    **Answer:**
-   `then`回傳的結果為 `resolve` 後的值
+   `then` 回傳的結果為 `fulfilled` 後的值
 
    ```jsx
    // then:  Error: error!!!
