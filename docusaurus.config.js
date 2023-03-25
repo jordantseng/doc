@@ -104,7 +104,7 @@ const config = {
               },
               {
                 label: 'Github',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                href: 'https://github.com/OInVein',
               },
             ],
           },
