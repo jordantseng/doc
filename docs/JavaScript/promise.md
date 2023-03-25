@@ -3,7 +3,7 @@
 ### TL;DR
 
 - 使用 Promise 可以減少 callback hell，讓程式碼可讀性更高
-- Promise 是一個**等待非同步操作完成的物件，**Promise 物件只會處於 pending、fulfilled、rejected 其中一種狀態
+- Promise 是一個**等待非同步操作完成的物件，**Promise 物件只會處於 `pending` 、 `fulfilled` 、 `rejected` 其中一種狀態
 
 ### 為什麼要使用 Promise
 
@@ -65,22 +65,22 @@ Promise 是一個**等待非同步操作完成的物件**，當事件完成時�
 
 Promise 物件只會處於下面三種狀態之一：
 
-1. pending - 初始狀態 （進行中）
-2. fulfilled - 事件已完成
-3. rejected - 事件已失敗
+1.  `pending` - 初始狀態（進行中）
+2.  `fulfilled` - 事件已完成
+3.  `rejected` - 事件已失敗
 
 **怎麼使用 Promise**
 
 Promise 是一個**建構函式**，我們需要透過 `new` 關鍵字建立一個 Promise。而 Promise 會接收一個函式作為參數，這個函式又稱為 executor，其包含了兩個函式參數
 
-1. **resolve(value)**：如下方所示，當 randomNum 是偶數時，會呼叫 `resolve` 並回傳 ‘isEven’，Promise 被 fulfilled ，事件已完成。
-2. **reject(error)**：如下方所示，當 randomNum 是奇數時，會呼叫 `reject` 並回傳 ‘isOdd’，Promise 被 rejected ，事件已失敗。
+1. **resolve(value)**：如下方所示，當 randomNum 是偶數時，會呼叫 `resolve` 並回傳 ‘isEven’，Promise 被 `fulfilled` ，事件已完成。
+2. **reject(error)**：如下方所示，當 randomNum 是奇數時，會呼叫 `reject` 並回傳 ‘isOdd’，Promise 被 `rejected` ，事件已失敗。
 
 Promise 物件提供了三個主要的方法：
 
-1. **then(fulfilledFn, rejectedFn)：**當 Promise 被 fulfilled 後，呼叫 fulfilledFn、當 Promise 被 reject 後，呼叫 rejectedFn，並回傳一個新的 **fulfilled** Promise 物件
-2. **catch(rejectedFn)：**當 Promise 被 reject 後，呼叫 rejectedFn，並回傳一個新的 **fulfilled** Promise 物件
-3. **finally(callback)：**不論 Promise 被 fulfilled 或 reject，都會呼叫 callback，並回傳一個新的 **fulfilled 或 reject** Promise 物件
+1. **then(fulfilledFn, rejectedFn)：**當 Promise 被 `fulfilled` 後，呼叫 fulfilledFn、當 Promise 被 `rejected` 後，呼叫 rejectedFn，並回傳一個新的 **fulfilled** Promise 物件
+2. **catch(rejectedFn)：**當 Promise 被 `rejected` 後，呼叫 rejectedFn，並回傳一個新的 **fulfilled** Promise 物件
+3. **finally(callback)：**不論 Promise 被 `fulfilled` 或 `rejected` ，都會呼叫 callback，並回傳一個新的 **fulfilled 或 reject** Promise 物件
 
 ```jsx
 new Promise((resolve, reject) => {
@@ -127,7 +127,7 @@ Promise.race([p1, p2])
 
 ### Promise.any(promises)
 
-將多個 Promise 物件包裝成一個新的 Promise 物件，並回傳**一個狀態最快被 `resolve`** 的結果， 如果全部 Promise 物件都被 `reject`，則回傳 `AggregateError`
+將多個 Promise 物件包裝成一個新的 Promise 物件，並回傳**一個狀態最快被 `resolve` **的結果， 如果全部 Promise 物件都被 `reject` ，則回傳 `AggregateError`
 
 ```jsx
 const p1 = new Promise((resolve, reject) => {
@@ -197,11 +197,11 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
 
 ### Promise.resolve(value)
 
-將一個物件轉型為 Promise (如果它不是一個 Promise 物件)，然後立刻 `resolve` 它
+將一個物件轉型為 Promise(如果它不是一個 Promise 物件)，然後立刻 `resolve` 它
 
 ### Promise.reject(reason)
 
-將一個物件轉型為 Promise (如果它不是一個 Promise 物件)，然後立刻 `reject` 它
+將一個物件轉型為 Promise(如果它不是一個 Promise 物件)，然後立刻 `reject` 它
 
 ### 常見問題
 
@@ -246,13 +246,13 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
    ```
 
    **Answer:**
-   `then` 回傳的結果為 `resolve` 後的值
+   `then`回傳的結果為 `resolve` 後的值
 
    ```jsx
    // then:  Error: error!!!
    ```
 
-1. **實作 Promise.race**
+1. **實作 `Promise.race`**
 
    ```jsx
    Promise.myRace = function (promises) {
@@ -270,7 +270,7 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
    };
    ```
 
-1. **實作 Promise.any**
+1. **實作 `Promise.any`**
 
    ```jsx
    Promise.myAny = function (promises) {
@@ -292,7 +292,7 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
    };
    ```
 
-1. **實作 Promise.all**
+1. **實作 `Promise.all`**
 
    ```jsx
    Promise.myAll = function (promises) {
@@ -316,7 +316,7 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
    };
    ```
 
-1. **實作 Promise.allSettled**
+1. **實作 `Promise.allSettled`**
 
    ```jsx
    Promise.myAllSettled = function (promises) {

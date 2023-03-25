@@ -2,27 +2,27 @@
 
 ### TL;DR
 
-- `this`就是呼叫這個函式的物件
-- 一般函式：`this` 指向全域物件
-- 物件方法：`this`指向物件本身
-- 建構函式 / 類： `this`指向物件實例
-- 事件監聽： `this`指向綁定的 DOM 元素
-- 箭頭函式：沒有`this`
+- `this` 就是呼叫這個函式的物件
+- 一般函式： `this` 指向全域物件
+- 物件方法： `this` 指向物件本身
+- 建構函式 / 類： `this` 指向物件實例
+- 事件監聽： `this` 指向綁定的 DOM 元素
+- 箭頭函式：沒有 `this`
 - call / apply / bind： `this` 指向任意指定的值
 
 ### 什麼是 this
 
-`this`是目前程式碼執行的環境
+`this` 是目前程式碼執行的環境
 
 由於其值是在執行時決定的，意味著**不同的執行環境**、**不同的模式**和**不同的程式碼前後文**會有不同的值
 
 **不同執行環境 / 執行模式：**
 
-在瀏覽器下，非嚴格模式，`this`預設值為`window`
+在瀏覽器下，非嚴格模式， `this` 預設值為 `window`
 
-在 node.js 下，非嚴格模式，`this`預設值為`global`
+在 node.js 下，非嚴格模式， `this` 預設值為 `global`
 
-在嚴格模式下，不論執行環境`this`預設值皆為`undefined`
+在嚴格模式下，不論執行環境 `this` 預設值皆為 `undefined`
 
 ```jsx
 'use strict';
@@ -38,7 +38,7 @@ log(); // undefined
 
 1. **全域環境**
 
-   在全域環境下，`this`指向全域物件`window`
+   在全域環境下， `this` 指向全域物件 `window`
 
    ```jsx
    console.log(this); // window
@@ -46,7 +46,7 @@ log(); // undefined
 
 2. **一般函式**
 
-   在一般函式內，`this`指向全域物件`window`
+   在一般函式內， `this` 指向全域物件 `window`
 
    ```jsx
    function log() {
@@ -58,7 +58,7 @@ log(); // undefined
 
 3. **物件的方法**
 
-   當函式作為物件的方法時，`this`會指向呼叫它的這個物件本身
+   當函式作為物件的方法時， `this` 會指向呼叫它的這個物件本身
 
    ```jsx
    const foo = {
@@ -73,7 +73,7 @@ log(); // undefined
 
 4. **建構函式 / 類**
 
-   函式作為建構函式或類的方法時，`this`會指向由它們創造出來的實例（instance）
+   函式作為建構函式或類的方法時， `this` 會指向由它們創造出來的實例（instance）
 
    ```jsx
    function Foo(value) {
@@ -103,7 +103,7 @@ log(); // undefined
 
 5. **事件監聽**
 
-   事件監聽函式的`this`會指向綁定監聽事件的 DOM 元素
+   事件監聽函式的 `this` 會指向綁定監聽事件的 DOM 元素
 
    ```jsx
    const input = document.getElementById('input');
@@ -115,14 +115,14 @@ log(); // undefined
 
 6. **箭頭函式**
 
-   一般來說，當函式被執行時都會建立一個自己的`this`，但由於箭頭函式沒有自己的`this`，它會透過作用域鏈（scope chain）去繼承其他作用域的`this`
+   一般來說，當函式被執行時都會建立一個自己的 `this` ，但由於箭頭函式沒有自己的 `this` ，它會透過作用域鏈（scope chain）去繼承其他作用域的 `this`
 
    ```jsx
    const foo = () => this;
    console.log(foo() === window); // true
    ```
 
-綜合以上的案例，可以發現`this`通常都是在函式內被使用，因此有個快速的判斷法
+綜合以上的案例，可以發現 `this` 通常都是在函式內被使用，因此有個快速的判斷法
 
 ```
 ✅ 要判斷this的值，就看這個函式「怎麽」被呼叫。換句話說，this就是呼叫這個函式的物件
@@ -130,11 +130,11 @@ log(); // undefined
 
 ### 指定 this 的值
 
-由於`this`通常都是在函式內被使用，JavaScript 提供了三個函式的方法，讓我們來指定`this`的值
+由於 `this` 通常都是在函式內被使用，JavaScript 提供了三個函式的方法，讓我們來指定 `this` 的值
 
 1. **call**
 
-   **function.call(thisArg, x, y, …)：**呼叫 `function(x, y, ...)`，並將函式的`this`綁定為 thisArg
+   **function.call(thisArg, x, y, …)：**呼叫 `function(x, y, ...)` ，並將函式的 `this` 綁定為 thisArg
 
    ```jsx
    function log(a, b) {
@@ -151,7 +151,7 @@ log(); // undefined
 
 2. **apply**
 
-   **function.apply(thisArg, [x, y, …])：**呼叫 `function(x, y, ...)`，並將函式的`this`綁定為 thisArg
+   **function.apply(thisArg, [x, y, …])：**呼叫 `function(x, y, ...)` ，並將函式的 `this` 綁定為 thisArg
 
    apply 和 call 使用方法非常相似，唯一的差別只是 apply 代入的參數為陣列
 
@@ -170,7 +170,7 @@ log(); // undefined
 
 3. **bind**
 
-   **function.bind(thisArg)：**回傳一個新函式，該函式被呼叫時，將新函式的`this`綁定為 thisArg
+   **function.bind(thisArg)：**回傳一個新函式，該函式被呼叫時，將新函式的 `this` 綁定為 thisArg
 
    ```jsx
    function log() {
@@ -235,7 +235,7 @@ log(); // undefined
 
    **Answer:**
 
-   執行`setTimeout`的函式並不是物件的方法，只是單純的一般函式，函式在執行時會產生自己的`this`，並指向全域物件，因此需要特別去綁定`this`的值
+   執行 `setTimeout` 的函式並不是物件的方法，只是單純的一般函式，函式在執行時會產生自己的 `this` ，並指向全域物件，因此需要特別去綁定 `this` 的值
 
    ```jsx
    // 1. that
@@ -273,7 +273,7 @@ log(); // undefined
    };
    ```
 
-3. **將 `jordan.log` 印出來的`this`更改為`null`**
+3. **將 `jordan.log` 印出來的 `this` 更改為 `null`**
 
    ```jsx
    class Person {
