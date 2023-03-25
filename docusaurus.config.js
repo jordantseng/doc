@@ -3,6 +3,8 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const organizationName = 'jordantseng';
+const projectName = 'doc';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -11,15 +13,17 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-test-site.com',
+  url: `https://${organizationName}.github.io`,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: `/${projectName}/`,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName, // Usually your GitHub org/user name.
+  projectName, // Usually your repo name.
+  deploymentBranch: 'gh-pages',
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -87,37 +91,33 @@ const config = {
             items: [
               {
                 label: 'Tutorial',
-                to: '/docs/intro',
+                to: '/',
               },
             ],
           },
           {
-            title: 'Community',
+            title: 'John',
             items: [
               {
-                label: 'Stack Overflow',
+                label: 'LinkedIn',
+                href: 'https://www.linkedin.com/in/david-geter-048ba4219/',
+              },
+              {
+                label: 'Github',
                 href: 'https://stackoverflow.com/questions/tagged/docusaurus',
               },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
             ],
           },
           {
-            title: 'More',
+            title: 'Jordan',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: 'LinkedIn',
+                href: 'https://www.linkedin.com/in/jordan-tseng/',
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/jordantseng',
               },
             ],
           },
