@@ -8,11 +8,15 @@
   ![alt text](./pic_htmltree.gif)
 
 - Shadow DOM
+
   - 為瀏覽器封裝標記、樣式與結構的技術
   - 可隱藏原先 DOM 的細節
   - 例如
-    ```jsx
-    <input type="range" /> <input type="date" />
+
+    ```html
+    <input type="range" />
+
+    <input type="date" />
     ```
 
 #### Web Documents
@@ -43,7 +47,7 @@
   - `<Button>` → `<a>`
 - 就算包裹的是 **同類型的 element**，**React** 仍會視為 **不同類型的 element** 而建立新的 tree，例如
 
-```jsx
+```tsx
 // 從
 <div>
   <Counter />
@@ -57,7 +61,7 @@
 
 - 若是 **同類型的 element** 且只有 attribute 變更，**React** 則會保留 DOM 節點，只異動該 attribute，例如
 
-```jsx
+```tsx
 // 從
 <div className="before" title="stuff" />
 
