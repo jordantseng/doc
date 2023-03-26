@@ -3,29 +3,67 @@
 ### 什麼是 DOM
 
 - DOM (Document Object Model / 文件物件模型)：描述 [Web Documents](#web-documents) 的物件。
-- DOM tree：以各個元素的 entry point 產生的樹狀結構，用以表示 page 的內容
+- DOM tree：瀏覽器解析 [Web Documents](#web-documents) 後所生成的一個樹狀結構，其中每個節點代表網頁文檔中的一個元素、屬性或文字。
 
   ![alt text](./pic_htmltree.gif)
 
 - Shadow DOM
   - 為瀏覽器封裝標記、樣式與結構的技術
   - 可隱藏原先 DOM 的細節
-  - e.g. `<input type="range" />` `<input type="date" />`
-
-### 什麼是 Virtual DOM
-
-- `Virtual DOM (VDOM)` 為透過 diff 演算法 以及 `ReactDOM` 同步當前的 real DOM 的技術
-- 這個編程過程稱為 `reconciliation`
+  - 例如
+    ```jsx
+    <input type="range" /> <input type="date" />
+    ```
 
 #### Web Documents
 
-- 為發布到 `World Wide Web (a.k.a. WWW)` 底下並可透過瀏覽器造訪的文件。
+- 為發布到 **World Wide Web (WWW)** 底下並可透過瀏覽器造訪的文件。
 - 通常以 HTML 描述，包含
   - HTML / CSS
   - JavaScript
   - XML
   - Images
   - Videos
+
+### 什麼是 Virtual DOM
+
+- Virtual DOM (VDOM) 是一種技術，它使用 [Diffing 演算法](#diffing-演算法) 比較虛擬 DOM 的前後狀態，只將差異部分更新到真實 DOM，以提高網頁效能
+- 此概念最早由 **React** 實現
+- 這個透過 [Diffing 演算法](#diffing-演算法) 比對的過程稱為 **reconciliation**，包含
+  - 創建新的虛擬 DOM tree
+  - 比較新舊虛擬 DOM tree 並找尋差異
+  - 將差異的結果透過 `react-dom` 更新至真實 DOM tree 上
+
+#### Diffing 演算法
+
+- 比較兩棵 tree 的 root element
+- 若 root element 為 **不同類型的 element** 時則直接銷毀並建立新的 tree，例如
+  - `<a>` → `<img>`
+  - `<img>` → `<Button>`
+  - `<Button>` → `<a>`
+- 就算包裹的是 **同類型的 element**，**React** 仍會視為 **不同類型的 element** 而建立新的 tree，例如
+
+```jsx
+// 從
+<div>
+  <Counter />
+</div>
+
+// 變成
+<span>
+  <Counter />
+</span>
+```
+
+- 若是 **同類型的 element** 且只有 attribute 變更，**React** 則會保留 DOM 節點，只異動該 attribute，例如
+
+```jsx
+// 從
+<div className="before" title="stuff" />
+
+// 變成
+<div className="after" title="stuff" />
+```
 
 #### 使用 Virtual DOM 的 framework/library
 
