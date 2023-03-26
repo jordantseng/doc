@@ -10,14 +10,13 @@
 - Shadow DOM
 
   - 為瀏覽器封裝標記、樣式與結構的技術
-  - 可隱藏原先 DOM 的細節
-  - 例如
+  - 可隱藏原先 DOM 的細節，例如
 
-    ```html
-    <input type="range" />
+  ```html
+  <input type="range" />
 
-    <input type="date" />
-    ```
+  <input type="date" />
+  ```
 
 #### Web Documents
 
