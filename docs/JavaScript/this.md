@@ -5,7 +5,7 @@
 - `this` 就是呼叫這個函式的物件
 - 一般函式： `this` 指向全域物件
 - 物件方法： `this` 指向物件本身
-- 建構函式 / 類： `this` 指向物件實例
+- 建構函式 / Class： `this` 指向物件實例
 - 事件監聽： `this` 指向綁定的 DOM 元素
 - 箭頭函式：沒有 `this`
 - call / apply / bind： `this` 指向任意指定的值
@@ -71,9 +71,9 @@ log(); // undefined
    foo.log(); // { foo: 123, log: [Function: log] }
    ```
 
-4. **建構函式 / 類**
+4. **建構函式（Constructor function）/ Class**
 
-   函式作為建構函式或類的方法時， `this` 會指向由它們創造出來的實例（instance）
+   函式作為建構函式或 Class 的方法時， `this` 會指向由它們創造出來的實例（instance）
 
    ```jsx
    function Foo(value) {
