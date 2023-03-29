@@ -1,7 +1,5 @@
 # closure
 
-Created: September 7, 2021 12:18 PM
-
 ### TL;DR
 
 - 閉包（Closure）是**函式以及該函式被宣告時所在的作用域環境（lexical environment）的組合**
@@ -34,7 +32,7 @@ const innerFn = outterFn();
 innerFn(); // jordan
 ```
 
-### 閉包的實際應用
+### 實際應用
 
 1. **狀態保存**
 
@@ -71,10 +69,13 @@ innerFn(); // jordan
      const cache = {};
      return function (...args) {
        const key = JSON.stringify(args);
+
        if (key in cache) return cache[key];
 
        const result = cb.apply(this, args);
+
        cache[key] = result;
+
        return result;
      };
    }
