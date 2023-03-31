@@ -8,9 +8,8 @@ const projectName = 'doc';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'DOC',
+  title: 'DOC 👨‍🚀',
   tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
   url: `https://${organizationName}.github.io`,
