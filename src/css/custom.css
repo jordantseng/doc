@@ -3,28 +3,51 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
+@import url("https://fonts.googleapis.com/css?family=Barlow|Tomorrow:400,700&display=swap");
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #1488db;
+  --ifm-color-primary-dark: #1177c0;
+  --ifm-color-primary-darker: #0e67a6;
+  --ifm-color-primary-darkest: #0c578d;
+  --ifm-color-primary-light: #1691e8;
+  --ifm-color-primary-lighter: #179bf8;
+  --ifm-color-primary-lightest: #1ebfff;
+  --ifm-color-contrast: #8000ff;
+  --ifm-color-shadow: #d4d4d4;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-color-primary: #e6e679;
+  --ifm-color-primary-dark: #eaea64;
+  --ifm-color-primary-darker: #d4d45a;
+  --ifm-color-primary-darkest: #b9b94e;
+  --ifm-color-primary-light: #feff6e;
+  --ifm-color-primary-lighter: #fdfd8c;
+  --ifm-color-primary-lightest: #fbfb99;
+  --ifm-color-contrast: #fa5f8a;
+  --ifm-color-shadow: #e6e6fa;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.navbar__title {
+  font-size: 1.5em;
+  transition: all .1s;
+}
+
+.navbar__title:hover {
+  transform: translateX(2px);
+  color: var(--ifm-color-contrast);
+  box-shadow: 0 0 20px 1px var(--ifm-color-shadow);
+  border-radius: 12px;
+  padding: 0 6px;
+  font-family: Tomorrow, sans-serif;
+}
+
+.navbar__title:hover::after {
+  content: '👨‍🚀';
 }
