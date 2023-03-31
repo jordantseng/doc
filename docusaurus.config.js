@@ -95,7 +95,7 @@ const config = {
             items: [
               {
                 label: 'LinkedIn',
-                href: 'https://www.linkedin.com/in/david-geter-048ba4219/',
+                href: 'https://www.linkedin.com/in/chuan-chih-cheng/',
               },
               {
                 label: 'Github',
