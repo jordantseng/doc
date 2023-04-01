@@ -117,7 +117,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} DOC, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} DOC, Inc.`,
       },
       prism: {
         theme: lightCodeTheme,
