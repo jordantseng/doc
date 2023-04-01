@@ -2,19 +2,16 @@
 
 ### TL;DR
 
-- 閉包（Closure）是**函式以及該函式被宣告時所在的作用域環境（lexical environment）的組合**
-- 由於 closure 就算**外部函式已經被執行，內部函式能夠取得該函式外部的變數**的特性，經常被應用在**狀態保存**、**緩存機制**、**模擬私有變數**以及**柯里化**
+- 閉包（closure）是**函式以及該函式被宣告時所在的作用域環境（lexical environment）的組合**
+- 要形成閉包須將函式宣告在另一個函式當中，**內部函式能夠取得本身作用域以外的變數，就算外部函式已經被執行**
+- 經常被應用在**狀態保存**、**緩存機制**、**模擬私有變數**以及**柯里化**
 - closure 主要用來**封裝私有變數和方法；**Class 主要用來**建立一個建立物件的藍圖**
 
 ### 什麼是閉包 （closure）
 
-A closure is a combination of a function and its lexical environment, or scope.
-
-A closure is a function that has access to variables from its outer scope, even after the outer function has returned.
-
 根據 [MDN](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Closures) 的定義，閉包（Closure）是**函式以及該函式被宣告時所在的作用域環境（lexical environment）的組合**
 
-簡單來說，要形成閉包須將函式宣告在另一個函式當中，**內部函式能夠取得該函式外部的變數，就算外部函式已經被執行**
+簡單來說，要形成閉包須將函式宣告在另一個函式當中，**內部函式能夠取得本身作用域以外的變數，就算外部函式已經被執行**
 
 ```jsx
 function outterFn() {
@@ -25,7 +22,7 @@ function outterFn() {
   return innerFn;
 }
 
-// 閉包 = innerFn + outterFn 的作用域環境 （紅色部分）
+// 閉包 = innerFn + outterFn 的作用域環境
 const innerFn = outterFn();
 
 // 就算 outterFn 已經被執行，innerFn 仍能夠取得 name 參數
@@ -83,7 +80,7 @@ innerFn(); // jordan
 
 3. **模擬私有變數**
 
-   有時候我們在開發程式碼內部細節，並不想讓外部來獲取。JavaScript 並不支援私有變數，但我們可以透過閉包做出類似的功能
+   有時候我們在開發程式碼內部細節，並不想讓外部取得。JavaScript 並不支援私有變數，但我們可以透過閉包做出類似的功能
 
    ```jsx
    const counter = function () {
