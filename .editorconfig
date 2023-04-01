@@ -1,0 +1,22 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# Top-most EditorConfig file
+root = true
+
+# Charset
+[*]
+charset = utf-8
+
+# End of line
+[*]
+end_of_line = lf
+
+# Indentation
+[*.{js,jsx,ts,tsx,html,css,scss}]
+indent_style = space
+indent_size = 2
+
+# Markdown files
+[*.md]
+trim_trailing_whitespace = true
+insert_final_newline = true
