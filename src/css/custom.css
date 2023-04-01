@@ -17,6 +17,7 @@
   --ifm-color-contrast: #8000ff;
   --ifm-color-shadow: #d4d4d4;
   --ifm-code-font-size: 95%;
+  --ifm-color-footer-background: #d3d3d37e;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
@@ -31,6 +32,7 @@
   --ifm-color-primary-lightest: #fbfb99;
   --ifm-color-contrast: #fa5f8a;
   --ifm-color-shadow: #e6e6fa;
+  --ifm-color-footer-background: #444444;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
@@ -50,4 +52,21 @@
 
 .navbar__title:hover::after {
   content: '👨‍🚀';
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.footer--dark {
+  --ifm-footer-background-color: var(--ifm-color-footer-background);
+  --ifm-footer-title-color: var(--ifm-color-primary-dark);
+  --ifm-footer-link-color: var(--ifm-color-primary-dark);
+  animation: fade 1s 1 linear forwards;
 }
