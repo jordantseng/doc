@@ -8,7 +8,7 @@ const projectName = 'doc';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'DOC 👨‍🚀',
+  title: 'FrontendWiz',
   tagline: 'Dinosaurs are cool',
 
   // Set the production url of your site here
@@ -63,13 +63,13 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'DOC',
+        title: 'FrontendWiz',
         items: [
           {
             type: 'doc',
             docId: 'README',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Magic spells',
           },
           // { to: '/blog', label: 'Blog', position: 'left' },
           {
@@ -85,7 +85,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Magic spells',
                 to: '/',
               },
             ],
@@ -117,7 +117,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} DOC, Inc.`,
+        copyright: `Copyright © ${new Date().getFullYear()} FrontendWiz, Inc.`,
       },
       prism: {
         theme: lightCodeTheme,
