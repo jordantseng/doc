@@ -52,10 +52,10 @@
 
 .navbar__title:hover::after {
   content: '👨‍🚀';
+  font-family: Tomorrow, sans-serif;
 }
 
 .footer--dark {
   --ifm-footer-background-color: var(--ifm-color-footer-background);
-  --ifm-footer-title-color: var(--ifm-color-primary-dark);
   --ifm-footer-link-color: var(--ifm-color-primary-dark);
 }
