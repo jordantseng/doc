@@ -62,8 +62,8 @@ const config = {
     ({
       // Replace with your project's social card
       algolia: {
-        apiKey: '8b20f5565a8190c07083efa507d35d7b',
-        appId: 'FXT6LKEYZ4',
+        appId: 'MIUZ4NWU9L',
+        apiKey: '2a30b08c877356ba61d0c42ba95cb8e3',
         indexName: 'frontendwiz',
       },
       image: 'img/docusaurus-social-card.jpg',
