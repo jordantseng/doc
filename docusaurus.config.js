@@ -15,7 +15,7 @@ const config = {
   url: `https://${organizationName}.github.io`,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: `/${projectName}/`,
+  baseUrl: `/`,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -61,11 +61,6 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      algolia: {
-        apiKey: 'c4a0aad7b6bd923dd5b365d2521873d4',
-        appId: '3UBOI9X9J2',
-        indexName: 'frontendwiz',
-      },
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
         title: 'FrontendWiz',
