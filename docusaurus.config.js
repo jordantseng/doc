@@ -61,6 +61,11 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
+      algolia: {
+        apiKey: 'c4a0aad7b6bd923dd5b365d2521873d4',
+        appId: '3UBOI9X9J2',
+        indexName: 'frontendwiz',
+      },
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
         title: 'FrontendWiz',
