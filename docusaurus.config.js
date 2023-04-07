@@ -62,7 +62,7 @@ const config = {
     ({
       // Replace with your project's social card
       algolia: {
-        apiKey: '07f61d0330553113406dfc49f7249216',
+        apiKey: '8b20f5565a8190c07083efa507d35d7b',
         appId: 'FXT6LKEYZ4',
         indexName: 'frontendwiz',
       },
