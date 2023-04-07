@@ -62,9 +62,9 @@ const config = {
     ({
       // Replace with your project's social card
       algolia: {
-        appId: 'MIUZ4NWU9L',
-        apiKey: '3d91908a5e35bbfa3ee74b3efe1520eb',
-        indexName: 'netlify_9f5c12af-6b1e-4ded-839e-c7fdaa7c77e1_main_all',
+        appId: 'Y4F1Y54M1P',
+        apiKey: 'd8e348da984f4a67eb60bac26a1511e7',
+        indexName: 'test_INDICES',
       },
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
