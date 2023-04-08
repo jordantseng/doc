@@ -60,9 +60,9 @@ const config = {
     ({
       // Replace with your project's social card
       algolia: {
-        appId: 'Y4F1Y54M1P',
-        apiKey: 'd8e348da984f4a67eb60bac26a1511e7',
-        indexName: 'netlify_9f5c12af-6b1e-4ded-839e-c7fdaa7c77e1_main_all',
+        appId: '3UBOI9X9J2',
+        apiKey: '6fee8a1f4e30b64c12bd266d77985b4c',
+        indexName: 'frontendwiz',
         contextualSearch: true,
         selector: 'div#',
       },
