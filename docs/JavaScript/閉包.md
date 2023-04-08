@@ -1,4 +1,4 @@
-# closure
+# 閉包
 
 ### TL;DR
 
