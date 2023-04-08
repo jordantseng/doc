@@ -12,7 +12,7 @@ const config = {
   tagline: 'Dinosaurs are cool',
 
   // Set the production url of your site here
-  url: `https://${organizationName}.github.io`,
+  url: 'https://frontendwiz.netlify.app/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: `/`,
@@ -21,8 +21,6 @@ const config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName, // Usually your GitHub org/user name.
   projectName, // Usually your repo name.
-  deploymentBranch: 'gh-pages',
-  trailingSlash: false,
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -64,7 +62,9 @@ const config = {
       algolia: {
         appId: 'Y4F1Y54M1P',
         apiKey: 'd8e348da984f4a67eb60bac26a1511e7',
-        indexName: 'test_INDICES',
+        indexName: 'netlify_9f5c12af-6b1e-4ded-839e-c7fdaa7c77e1_main_all',
+        contextualSearch: true,
+        selector: 'div#',
       },
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
