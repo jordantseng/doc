@@ -22,8 +22,6 @@ jobs:
         run: yarn install
       - name: Build website
         run: yarn build
-      - name: List contents of directory
-        run: ls -al
 
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
@@ -46,9 +44,11 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - name: Run Docker Script
         env:
           APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
           API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
-        run: docker run -it -e "CONFIG=$(cat config.json)" --env APP_ID=${APP_ID} --env API_KEY=${API_KEY} algolia/docsearch-scraper
+        run: docker run -it -e "CONFIG=$(cat ./config.json)" --env APP_ID=${APP_ID} --env API_KEY=${API_KEY} algolia/docsearch-scraper
 
