@@ -50,7 +50,7 @@ jobs:
         run: |
           docker run \
             -e CONFIG="$(cat ./config.json)" \
-            -e APP_ID="${{ secrets.ALGOLIA_APP_ID }}" \
+            -e APPLICATION_ID="${{ secrets.ALGOLIA_APP_ID }}" \
             -e API_KEY="${{ secrets.ALGOLIA_API_KEY }}" \
             algolia/docsearch-scraper
 
