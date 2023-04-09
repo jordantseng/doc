@@ -41,7 +41,6 @@ jobs:
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
 
       - name: Run Algolia Scraper
-          if: success()
           needs: deployed
           env:
             APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
