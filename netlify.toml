@@ -1,2 +1,0 @@
-[[plugins]]
-  package = "@algolia/netlify-plugin-crawler"
