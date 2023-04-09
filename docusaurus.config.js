@@ -123,6 +123,12 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
+      algolia: {
+        appId: 'KO737BWM40',
+        apiKey: 'c32b27b5da575b1a6baa1a943a55f4ca',
+        indexName: 'FRONTENDWIZ_INDEX',
+        contextualSearch: true,
+      },
     }),
 };
 
