@@ -43,13 +43,18 @@ jobs:
     name: Run Algolia Crawler
     needs: deploy
     runs-on: ubuntu-latest
+    env:
+      APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+      API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
     steps:
       - uses: actions/checkout@v3
 
+      - name: "Check key"
+        run: |
+          echo "APP_ID - $APP_ID"
+          echo "API_KEY - $API_KEY"
+
       - name: Run Docker Script
-        env:
-          APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
-          API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
         run: |
           docker run \
             -e CONFIG="$(cat ./config.json)" \
