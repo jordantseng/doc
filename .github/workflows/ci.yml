@@ -1,0 +1,9 @@
+name: Test Build
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-build:
+    uses: ./.github/workflows/test-deploy.yml
