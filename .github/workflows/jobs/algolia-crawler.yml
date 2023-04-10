@@ -5,16 +5,12 @@ on:
     branches: [main]
 
 jobs:
-  deploy:
-    - uses: ./.github/workflows/deploy-github-pages.yml
-
-  run-algolia-crawler:
+  algolia-crawler:
     name: Run Algolia Crawler
     needs: deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - name: Run Docker Script
         run: |
           docker run \
