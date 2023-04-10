@@ -2,14 +2,29 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
-    # Review gh actions docs if you want to further define triggers, paths, etc
-    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
+    branches: [main]
 
 jobs:
   deploy:
-    uses: ./.github/workflows/deploy-github-pages.yml
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+      - name: Install dependencies
+        run: yarn install
+      - name: Build website
+        run: yarn build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.FRONTENDWIZ_GITHUB_TOKEN }}
+          publish_dir: ./build
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
 
   run-algolia-crawler:
     name: Run Algolia Crawler
