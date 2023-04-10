@@ -1,0 +1,27 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    # Review gh actions docs if you want to further define triggers, paths, etc
+    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/deploy-github-pages.yml
+
+  run-algolia-crawler:
+    name: Run Algolia Crawler
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run Docker Script
+        run: |
+          docker run \
+            -e CONFIG="$(cat ./config.json)" \
+            -e APPLICATION_ID="${{ secrets.ALGOLIA_APP_ID }}" \
+            -e API_KEY="${{ secrets.ALGOLIA_API_KEY }}" \
+            algolia/docsearch-scraper
