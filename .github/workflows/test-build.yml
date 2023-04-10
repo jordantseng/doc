@@ -1,8 +1,7 @@
-name: Test deployment
+name: Test Build
 
 on:
-  pull_request:
-    branches: [main]
+  workflow_call:
 
 jobs:
   test-deploy:

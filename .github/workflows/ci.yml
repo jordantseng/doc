@@ -6,4 +6,4 @@ on:
 
 jobs:
   test-build:
-    uses: ./.github/workflows/test-deploy.yml
+    uses: ./.github/workflows/test-build.yml
