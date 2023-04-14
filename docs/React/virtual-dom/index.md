@@ -1,4 +1,6 @@
-# DOM vs. Virtual DOM
+# Virtual DOM
+
+在說明到 Virtual DOM 之前，我們先來理解一下它與 DOM 之間的差異
 
 ### 什麼是 DOM
 
