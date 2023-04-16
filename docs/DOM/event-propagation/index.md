@@ -1,3 +1,5 @@
+# 事件傳遞
+
 ### TL;DR
 
 - 事件傳遞可以依序分為三個階段：捕獲（Capturing）、目標（Target）、冒泡（Bubbling）。
