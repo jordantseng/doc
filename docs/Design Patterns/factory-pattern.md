@@ -43,12 +43,12 @@ const jordan = human('jordan', 18, 'https://github.com/jordantseng');
 const john = human('john', 16, 'https://github.com/OInVein');
 ```
 
-### Pros
+### 優點
 
 1. 當有多個相似的小物件時，Factory Pattern 會非常好用
 2. 相關設定集中一個 function 管理，遵守 [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) 原則
 
-### Cons
+### 缺點
 
 由於 factory function 每次都是建立一個新的物件，相較於用 `new` 的方式來建立物件，factory function 於記憶體上會更加耗能。
 
