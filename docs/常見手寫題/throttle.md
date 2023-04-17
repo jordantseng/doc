@@ -1,6 +1,6 @@
-# Throttle 實作
+# 實作 Throttle
 
-## TL;DR
+### TL;DR
 
 - throttle 是指函式只會在一定時間內執行一次。
 - 與 debounce（防抖）都是為了減少短時間內會重複觸發的函示次數，藉此優化效能。

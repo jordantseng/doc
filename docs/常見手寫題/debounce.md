@@ -1,6 +1,6 @@
-# Debounce 實作
+# 實作 Debounce
 
-## TL;DR
+### TL;DR
 
 - debounce 是指只有當事件在一定時間內沒有連續觸發時，函式才會執行。
 - 與 throttle（節流）都是為了減少短時間內會重複觸發的函示次數，藉此優化效能。

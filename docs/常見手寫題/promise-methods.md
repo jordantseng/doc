@@ -1,4 +1,4 @@
-# Promise 方法實作
+# 實作 Promise 方法
 
 ### Promise.race
 

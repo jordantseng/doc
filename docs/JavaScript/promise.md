@@ -9,7 +9,7 @@
 
 在了解什麼是 Promise 之前，我們需要先知道為什麼要使用 Promise 🤔
 
-在 ES6 以前，在 JavaScript 處理異步的方式大多都是透過回調函式（callback）的寫法，但 callback 的寫法存在一個很大的問題，當需要處理多個異步操作時，程式碼會不斷往內嵌套，導致程可讀性非常差，也被稱為「callback 地獄」（callback hell）。
+在 ES6 以前，JavaScript 處理異步的方式大多都是透過回調函式（callback），但 callback 的寫法存在一個很大的問題，當需要處理多個異步操作時，程式碼會不斷往內嵌套，導致可讀性非常差，也被稱為「callback 地獄」（callback hell）。
 
 ```js
 const waitOneSecond = (cb) => {
@@ -30,7 +30,7 @@ waitOneSecond(() => {
 });
 ```
 
-雖然還沒介紹什麼是 Promise，但是如果我們先把上面這段程式碼改寫成 Promise 寫法的話，可以發現可讀性大大的提升。
+雖然還沒介紹什麼是 Promise，但是如果我們先把上面這段程式碼改寫成 Promise 寫法的話，會發現可讀性大大的提升。
 
 ```jsx
 const waitOneSecond = () => {
@@ -58,7 +58,7 @@ waitOneSecond()
 
 ### 什麼是 Promise
 
-Promise 是一個**等待非同步操作完成的物件**，當事件完成時，Promise 根據操作結果是成功、或者失敗，做相對應的處理動作。
+Promise 是一個**等待非同步操作完成的物件**，當事件完成時，Promise 根據操作結果是成功、或者失敗，做相對應的處理。
 
 Promise 只會處於下面三種狀態之一：
 
@@ -66,17 +66,23 @@ Promise 只會處於下面三種狀態之一：
 2.  `fulfilled` - 事件已完成
 3.  `rejected` - 事件已失敗
 
-**怎麼使用 Promise**
+### 如何建立 Promise
 
-使用 Promise 的**建構函式**，透過 `new` 建立一個 Promise。Promise 建構函式會接收一個函式作為參數，這個函式又稱為 executor，其又包含了兩個函式參數。
+透過 Promise 的**建構函式**，搭配 `new` 建立一個 Promise 物件。
+
+```jsx
+const promise = new Promise((resolve, reject) => {});
+```
+
+Promise 建構函式會接收一個函式作為參數，這個函式又稱為 executor，其又包含了兩個函式參數。
 
 1. **resolve(value)**：如下方所示，當 randomNum 是偶數時，會呼叫 `resolve` 並回傳 isEven，Promise 被 `fulfilled` ，事件已完成。
 2. **reject(error)**：如下方所示，當 randomNum 是奇數時，會呼叫 `reject` 並回傳 isOdd，Promise 被 `rejected` ，事件已失敗。
 
 Promise 提供了三個主要的方法：
 
-1. **then(fulfilledFn, rejectedFn)：**當 Promise 被 `fulfilled` 後，呼叫 fulfilledFn、當 Promise 被 `rejected` 後，呼叫 rejectedFn，並回傳一個新的 **fulfilled** Promise。
-2. **catch(rejectedFn)：**當 Promise 被 `rejected` 後，呼叫 rejectedFn，並回傳一個新的 `fulfilled` Promise。
+1. **then(fulfilledFn, rejectedFn)：**當 Promise 被 `fulfilled` 後，呼叫 fulfilledFn、當 Promise 被 `rejected` 後，呼叫 rejectedFn，最後回傳一個新的 **fulfilled** Promise。
+2. **catch(rejectedFn)：**當 Promise 被 `rejected` 後，呼叫 rejectedFn，回傳一個新的 `fulfilled` Promise。
 3. **finally(callback)：**不論 Promise 被 `fulfilled` 或 `rejected` ，都會呼叫 callback，並回傳一個新的 `fulfilled` 或 `reject` 的 Promise。
 
 ```js
@@ -137,7 +143,7 @@ const p2 = new Promise((resolve, reject) => {
 
 Promise.any([p1, p2]).then(function (value) {
   console.log(value);
-  // 0.5秒後，p2 狀態 fulfilled，印出 1
+  // 0.5秒後，p1 狀態 fulfilled，印出 1
 });
 ```
 
@@ -191,7 +197,7 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
   //   { status: 'fulfilled', value: 1 },
   //   { status: 'fulfilled', value: 2 },
   //   { status: 'fulfilled', value: 3 },
-  //   { status: 'rejected', reason: Error: 4 }
+  //   { status: 'rejected', reason: 4 }
   // ]
 });
 ```
@@ -224,7 +230,7 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
 
    **Answer:**
 
-   呼叫 Promise 建構函式，executor 將會被立即執行
+   呼叫 Promise 建構函式，executor 將會被立即執行。
 
    ```jsx
    // 1
@@ -249,7 +255,8 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
    ```
 
    **Answer:**
-   `then` 回傳的結果為 `fulfilled` 後的值
+
+   `then` 回傳的結果為 `fulfilled` 後的值。
 
    ```jsx
    // then:  Error: error!!!
