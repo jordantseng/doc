@@ -22,7 +22,7 @@ const jordan = {
 
 const john = {
   name: 'john',
-  age: 18,
+  age: 16,
   github: 'https://github.com/OInVein',
   talk() {
     return `Hello, I'm ${this.name}`;
