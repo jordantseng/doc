@@ -1,6 +1,6 @@
 # Factory Pattern
 
-_a factory function is a function that create objects and return them._
+_A factory function is a function that creates and returns a new object._
 
 Factory Pattern 其實就是**使用 factory function 來建立物件**，而 factory function 為**一個回傳新物件的 function**。
 
@@ -50,7 +50,7 @@ const john = human('john', 16, 'https://github.com/OInVein');
 
 ### 缺點
 
-由於 factory function 每次都是建立一個新的物件，相較於用 `new` 的方式來建立物件，factory function 於記憶體上會更加耗能。
+相較於使用 `new` 的方式來建立新的物件實例 (instance)，factory function 每次都是建立一個新的物件，因此效能會比較低，
 
 ```js
 class Human {
@@ -65,8 +65,15 @@ class Human {
   }
 }
 
+// jordan 與 john 都是獨立的物件，且繼承同樣的 prototype
+// 因此當透過 new 建立多個物件實例時，會比較節省記憶體空間
 const jordan = new Human('jordan', 18, 'https://github.com/jordantseng');
 const john = new Human('john', 16, 'https://github.com/OInVein');
+
+// jordan 與 john 都是獨立的物件，以及獨立的 prototype
+// 因此當透過 factory function 建立多個物件時，會比較耗費記憶體空間
+const jordan = human('jordan', 18, 'https://github.com/jordantseng');
+const john = human('john', 16, 'https://github.com/OInVein');
 ```
 
 參考來源:
