@@ -6,7 +6,7 @@ title: Factory Pattern
 
 _A factory function is a function that creates and returns a new object._
 
-**Factory Pattern** 其實就是**使用 factory function 來建立物件**，而 factory function 為**一個回傳新物件的 function**。
+Factory Pattern 其實就是**使用 factory function 來建立物件**，而 factory function 為**一個回傳新物件的 function**。
 
 ### 使用方式
 
