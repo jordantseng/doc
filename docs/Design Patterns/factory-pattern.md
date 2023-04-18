@@ -21,7 +21,7 @@ const jordan = {
 };
 
 const john = {
-  name: 'jordan',
+  name: 'john',
   age: 18,
   github: 'https://github.com/OInVein',
   talk() {
