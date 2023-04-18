@@ -1,4 +1,8 @@
-# Factory Pattern
+---
+title: Factory Pattern
+---
+
+# 工廠模式 Factory Pattern
 
 _A factory function is a function that creates and returns a new object._
 
