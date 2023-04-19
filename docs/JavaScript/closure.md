@@ -2,16 +2,16 @@
 
 ### TL;DR
 
-- 閉包（closure）是**函式以及該函式被宣告時所在的作用域環境（lexical environment）的組合**
-- 要形成閉包須將函式宣告在另一個函式當中，**內部函式能夠取得本身作用域以外的變數，就算外部函式已經被執行**
-- 經常被應用在**狀態保存**、**緩存機制**、**模擬私有變數**以及**柯里化**
-- closure 主要用來**封裝私有變數和方法；**Class 主要用來**建立一個建立物件的藍圖**
+- 閉包（closure）是**函式以及該函式被宣告時所在的作用域環境（lexical environment）的組合**。
+- 要形成閉包須將函式宣告在另一個函式當中，**內部函式能夠取得本身作用域以外的變數，就算外部函式已經被執行**。
+- 經常被應用在**狀態保存**、**緩存機制**、**模擬私有變數**以及**柯里化**。
+- closure 主要用來**封裝私有變數和方法；**Class 主要用來**建立一個建立物件的藍圖**。
 
 ### 什麼是閉包 （closure）
 
-根據 [MDN](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Closures) 的定義，閉包（Closure）是**函式以及該函式被宣告時所在的作用域環境（lexical environment）的組合**
+根據 [MDN](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Closures) 的定義，閉包（Closure）是**函式以及該函式被宣告時所在的作用域環境（lexical environment）的組合**。
 
-簡單來說，要形成閉包須將函式宣告在另一個函式當中，**內部函式能夠取得本身作用域以外的變數，就算外部函式已經被執行**
+簡單來說，要形成閉包須將函式宣告在另一個函式當中，**內部函式能夠取得本身作用域以外的變數，就算外部函式已經被執行**。
 
 ```jsx
 function outterFn() {
@@ -33,7 +33,7 @@ innerFn(); // jordan
 
 1. **狀態保存**
 
-   React 中的 `useState` 就是透過 closure 的概念實作，以下為一個簡易版的  `useState` ，從下方程式碼可以發現，`getState`與`setState`  可以透過 closure 的特性，讓**內部函式記住外部的變數**，因此可以透過呼叫 `setState` 後，改變 state 的值，也可以透過 `getState`取得 state 最新的值
+   React 中的 `useState` 就是透過 closure 的概念實作，以下為一個簡易版的  `useState` ，從下方程式碼可以發現，`getState`與`setState`  可以透過 closure 的特性，讓**內部函式記住外部的變數**，因此可以透過呼叫 `setState` 後，改變 state 的值，也可以透過 `getState`取得 state 最新的值。
 
    ```jsx
    function useState(initialState) {
@@ -59,7 +59,7 @@ innerFn(); // jordan
 
 2. **緩存機制 （memoization）**
 
-   緩存機制也是透過 closure 讓**內部函式記住外部的變數**的特性，將計算過的值儲存在 cache 物件中，當下次使用相同的引數 （argument）呼叫時，就可以不用重新計算，直接取得已經儲存在 cache 物件的值
+   緩存機制也是透過 closure 讓**內部函式記住外部的變數**的特性，將計算過的值儲存在 cache 物件中，當下次使用相同的引數 （argument）呼叫時，就可以不用重新計算，直接取得已經儲存在 cache 物件的值。
 
    ```jsx
    function memoize(cb) {
@@ -80,7 +80,7 @@ innerFn(); // jordan
 
 3. **模擬私有變數**
 
-   有時候我們在開發程式碼內部細節，並不想讓外部取得。JavaScript 並不支援私有變數，但我們可以透過閉包做出類似的功能
+   有時候我們不想讓暴露某些程式碼給外部使用，雖然 JavaScript 並不支援私有變數，但我們可以透過閉包達到類似的效果。
 
    ```jsx
    const counter = function () {
@@ -128,7 +128,9 @@ innerFn(); // jordan
 
 ### closure vs. Class
 
-在 ES6 以前，JavaScript 還沒有 Class，我們如果要模擬 OOP 的行為，一般都是透過 closure 實作
+在 ES6 以前，JavaScript 還沒有 Class，我們如果要模擬 OOP 的行為，一般都是透過 closure 達成。
+
+closure
 
 ```jsx
 function counter() {
@@ -141,7 +143,11 @@ function counter() {
 const counter1 = counter();
 counter1.increment(); // 0
 counter1.increment(); // 1
+```
 
+class
+
+```jsx
 class Counter {
   constructor() {
     this.count = 0;
@@ -156,19 +162,21 @@ counter2.increment(); // 0
 counter2.increment(); // 1
 ```
 
-雖然 closure 和 Class 在封裝邏輯和私有變數有許多相似之處，但它們是不同的概念，有著不同的用
+雖然 closure 和 Class 在封裝邏輯和私有變數有許多相似之處，但它們是不同的概念，有著不同的用途：
 
-- closure：主要用來**封裝私有變數和方法**
-- Class：主要用來**建立一個建立物件的藍圖**
+- closure：**封裝私有變數和方法**。
+- Class：**建立一個建立物件的藍圖**。
 
-closure 和 Class 還有一個很大的不同，Class 創造出來的實例每次呼叫都是同一個 Class 方法，而透過 closure 建立的實例每次都是回傳一個全新的物件，因此每次實例呼叫的都是不同的方法
+closure 和 Class 還有一個很大的不同，Class 創造出來的實例每次呼叫都是同一個 Class 方法，而透過 closure 建立的實例每次都是回傳一個全新的物件，因此每次實例呼叫的都是不同的方法。
 
 ```jsx
+// 透過 closure 建立
 const counter1 = count();
 const counter2 = count();
 
 console.log(counter1.increment === counter2.increment); // false
 
+// 透過 class 建立
 const counter3 = new Count();
 const counter4 = new Count();
 console.log(counter3.increment === counter4.increment); // true
