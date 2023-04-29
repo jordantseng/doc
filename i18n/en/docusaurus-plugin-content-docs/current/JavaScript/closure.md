@@ -33,7 +33,7 @@ const innerFn = outerFn();
 innerFn(); // jordan
 ```
 
-### Practical Closures
+### Practical examples
 
 1. **State Persistence**
 
