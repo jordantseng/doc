@@ -1,0 +1,38 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.DOM": {
+    "message": "DOM",
+    "description": "The label for category DOM in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Design Patterns": {
+    "message": "Design Patterns",
+    "description": "The label for category Design Patterns in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.JavaScript": {
+    "message": "JavaScript",
+    "description": "The label for category JavaScript in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.React": {
+    "message": "React",
+    "description": "The label for category React in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Git": {
+    "message": "Git",
+    "description": "The label for category Git in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.瀏覽器": {
+    "message": "Browser",
+    "description": "The label for category 瀏覽器 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.網路安全": {
+    "message": "Internet Security",
+    "description": "The label for category 網路安全 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.面試手寫題": {
+    "message": "Handwriting Questions",
+    "description": "The label for category 面試手寫題 in sidebar tutorialSidebar"
+  }
+}
