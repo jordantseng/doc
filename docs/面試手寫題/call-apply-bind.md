@@ -1,4 +1,4 @@
-# 實作 call, apply, bind
+# call, apply, bind
 
 ```jsx
 Function.prototype.myCall = function (thisArg, ...args) {

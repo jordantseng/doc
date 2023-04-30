@@ -1,4 +1,4 @@
-# 實作 Throttle
+# 節流
 
 ### TL;DR
 

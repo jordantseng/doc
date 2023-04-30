@@ -1,4 +1,4 @@
-# 實作 Debounce
+# 防抖
 
 ### TL;DR
 
