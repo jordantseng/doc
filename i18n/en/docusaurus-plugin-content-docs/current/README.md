@@ -3,24 +3,24 @@ slug: /
 sidebar_position: 1
 ---
 
-### 關於我們
+### About us
 
-FrontendWiz 是由兩位好友共同建立的網站，我們致力於分享前端相關的內容，透過這種方式記錄一些我們最近所學以及在面試中遇到的問題。
+FrontendWiz is a platform created by two friends with a passion for frontend engineering. We believe that through sharing our knowledge and experiences, we can all become better developers and strive to become true Frontend Wizards 🧙‍♂️
 
-我們的文章都是由不同來源整理而來的個人筆記，這些筆記不僅有助於我們個人的學習，也希望能透過這些內容能夠和其他對前端工程有興趣的人多多交流，並提供參考和幫助。
+Our platform is dedicated to providing you with high-quality, insightful content that can help you stay up to date with the latest developments in frontend engineering. We believe that by sharing our personal notes and experiences, we can offer a unique perspective on the industry that can help you improve your skills and advance your career.
 
-**Wizard** 在軟體工程中代表著**技術專家**，總是傾向於找到最佳的方法，並深入了解底層的技術，希望大家可以透過這個平台，一起成為 Frontend Wizard 🧙‍♂️（我們也還不是就是了）這也是為什麼網站取名為 FrontendWiz 的原因。
+We chose the name FrontendWiz to reflect our commitment to becoming experts in frontend engineering, and we hope to inspire you to do the same. Whether you're a beginner or an experienced developer, we believe that there's always room to learn and grow.
 
-我們會定期更新最新的前端知識並分享，同時也歡迎在閱讀中提出任何錯誤或建議，我們會竭盡所能進行修正和改進，再請大家多多指教 🫡
+However, we know we're not perfect. We value your feedback and suggestions and are always looking for ways to improve our platform. So if you spot an error, have a question, or simply want to share your thoughts with us, don't hesitate to reach out.
 
-### 關於 John
+### About John
 
-在深耕前端工程幾年後，學習的方式一直尚未有個定案，是不斷的透過 trial and error 的方式進行學習，正所謂坑踩多了，總會記得路怎麼走 🫣
+After years of delving deep into frontend engineering, I still haven't found a consistent way of learning. It's been a constant process of trial and error. But as they say, the more mistakes you make, the more you learn 🫣
 
-每當找尋到最佳解決方案後，往往會喜悅的忘我，覺得可惜的是，一直沒有好好的把這些過程給記錄下來，於是參與建立此網站，順便了解自己的學習過程，朝更專業的 Developer 👨‍🚀 邁進。
+Whenever I find the best solution, I'm ecstatic and often forget to document the process. That's why I helped create this website, not only to track my learning progress, but also to share my experiences with others and become a more professional developer 👨‍🚀
 
-### 關於 Jordan
+### About Jordan
 
-前端技術日新月異，經常需要不斷地學習和複習。尤其是在面試前，回顧一些常見問題是非常必要的，因此決定建立一個屬於自己的 cheatsheet，可以更方便地複習和應對接下來的面試大魔王。
+Frontend technology is always changing, and we gotta keep up with the latest updates by learning and reviewing constantly. Especially when it comes to interviews, it's crucial to go over some common questions and topics. So we decided to create our own cheatsheet to make reviewing and prepping for the interview boss a lot easier!
 
-大家一起加油 🙋🏻
+Let's do this together 🙋🏻🙋‍♀️

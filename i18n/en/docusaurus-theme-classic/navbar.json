@@ -1,0 +1,10 @@
+{
+  "title": {
+    "message": "FrontendWiz",
+    "description": "The title in the navbar"
+  },
+  "item.label.Wizard book": {
+    "message": "Wizard book",
+    "description": "Navbar item with label Wizard book"
+  }
+}
