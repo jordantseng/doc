@@ -1,27 +1,29 @@
-# 事件傳遞
+# Event Propagation
 
 ### TL;DR
 
-- 事件傳遞可以依序分為三個階段：捕獲（Capturing）、目標（Target）、冒泡（Bubbling）。
-- `event.stopPropagation` 用來取消事件的傳遞，`event.preventDefault` 則用來取消瀏覽器預設的行為。
-- `event.target` 為觸發事件的元素，`event.currentTarget` 為事件傳遞時觸發事件的元素。
-- 事件代理（event delegation）是將事件處理器綁定到父層元素，透過事件傳遞統一處理相同類型的事件。
+- Event propagation can be divided into three stages: **capturing**, **target**, and **bubbling**.
+- `event.stopPropagation` is used to stop the propagation of an event, while `event.preventDefault` is used to prevent the browser from performing its default action for that event.
+- `event.target` refers to the element that triggered the event, while `event.currentTarget` refers to the current element that is processing the event during propagation.
+- Event delegation is a technique where a parent element handles events for its child elements, rather than each child element having its own event handler.
 
-### 事件傳遞的三個階段
+### What is Event Propagation
 
-事件傳遞可以分為三個階段：
+In JavaScript, event propagation refers to the way events are propagated (or passed along) through the DOM tree.
 
-1. 捕獲（Capturing）：事件由**根元素往下傳遞**，直到找到觸發事件的元素。
-2. 目標（Target）：事件找到觸發事件的元素，並執行其事件處理器（event handler）。
-3. 冒泡（Bubbling）：事件由**觸發事件的元素往上傳遞**，直到回到根元素。
+There are three phases of event propagation: **capturing**, **target**, and **bubbling**.
+
+1. Capturing：The event starts at the outermost ancestor element and moves towards the target element that triggered the event.
+2. Target：The event triggered any event listeners or handlers attached directly to the target element.
+3. Bubbling：The event propagates back up the DOM tree from the target element to the outermost ancestor element.
 
 ![eventflow.png](./eventflow.png)
 
-### 事件捕獲（Capturing）
+### Capturing
 
-由根元素往下找目標元素的過程。
+By default, when using `addEventListener`, the event listener only listens for events in the **target** and **bubbling** phases.
 
-當使用  `addEventListener(event, handler)`  的時候，**預設只會監聽事件傳遞的目標和冒泡階段**，如果要監聽捕獲階段，就必須在  `addEventListener()`  中第三個參數代入  `true`。
+If you want to listen for events in the capturing phase, you need to pass a third parameter of `true` to the `addEventListener` method.
 
 ```html
 <body>
@@ -48,14 +50,12 @@
     true,
   );
 
-  // 當 button 被點擊時，由於 eventListener 第三個參數為 true
-  // 因此將會監聽捕獲事件，因此依序印出 body, button
+  // It will listen for the capturing event, as the third parameter of the eventListener is true
+  // When the button is clicked, 'body' and 'button' will be logged in order
 </script>
 ```
 
-### 事件冒泡（Bubbling）
-
-在目標階段執行目標元素的事件處理器後，由目標元素往上傳遞至根元素的過程。
+### Bubbling
 
 ```html
 <body onclick="console.log('body')">
@@ -64,14 +64,15 @@
   </div>
 </body>
 
-// 當 button 被點擊時，依序印出 button div body
+<!-- When the button is clicked, 'button', 'div' and 'body' will be logged in order -->
+<!-- The reason why 'div' and 'body' are logged is because of event bubbling -->
 ```
 
-### 取消事件傳遞 (event.stopPropagation)
+### `event.stopPropagation`
 
-在實務上，我們有時候不想要事件傳遞，只想要目標元素的事件被觸發，不想要其他元素的事件也被觸發。
+In practice, we may sometimes want to prevent event propagation, such that only the event associated with the target element is triggered, without triggering any other events associated with other elements.
 
-這時候我們就可以加上 `event.stopPropagation()`來取消事件的傳遞。
+To achieve this, we can use `event.stopPropagation()` to cancel the propagation of the event.
 
 ```html
 <body>
@@ -91,11 +92,14 @@
     console.log('button');
   });
 
-  // 當 button 被點擊時，由於 e.stopPropagation，事件將不會繼續冒泡，因此只會印出 button
+  // Due to e.stopPropagation, when the button is clicked, the event will not continue to bubble
+  // As a result, only 'button' will be logged
 </script>
 ```
 
-❗️ 當在**捕獲階段取消事件傳遞**時，後續的目標、冒泡階段皆不會發生。
+:::caution
+If event propagation is cancelled during the capturing phase, subsequent target and bubbling phases will not occur.
+:::
 
 ```html
 <body>
@@ -131,43 +135,43 @@
     console.log('button');
   });
 
-  // 只會印出 capturing body，因為在捕獲階段就取消事件往下繼續傳遞
+  // As event propagation is cancelled during the capturing phase
+  // Only 'capturing body' will be logged
 </script>
 ```
 
-### 取消預設行為 （event.preventDefault）
+### `event.preventDefault`
 
-`event.preventDefault()`經常與 `event.stopPropagation()` 搞混。
+`event.preventDefault()` is used to prevent the default browser behavior associated with an event, such as following a link or submitting a form.
+It does not affect the event propagation.
 
-`event.stopPropagation()`是用來取消事件的傳遞。
+As shown in the following code, when a user clicks on an anchor tag `<a>`, the default behavior of the browser is to navigate to a different page.
 
-`event.preventDefault()`主要是用來取消預設的瀏覽器行為，與事件傳遞並無關係。
-
-如下方程式碼所示，當使用者點擊 a 標籤的時候，瀏覽器預設的行為是跳轉到不同的頁面，然而可以透過`event.preventDefault()`來取消 a 標籤跳轉的預設行為，來執行開發人員想要的行為。
+However, this default behavior can be prevented using `event.preventDefault()`, allowing developers to execute the desired behavior instead.
 
 ```js
 const link = document.querySelector('a');
 
 link.addEventListener('click', function (e) {
-  e.preventDefault(); // 取消預設行為
-  console.log('clicked'); // 執行開發人員想要的行為
+  e.preventDefault(); // prevent the default behavior
+  console.log('clicked'); // execute the desired behavior
 });
 ```
 
-### event.target vs. event.currentTarget
+### `event.target` vs. `event.currentTarget`
 
-`event.target` 與 `event.currentTarget` 也是一個經常搞混的概念。
+- `event.target`：The element that triggered the event. This element will not change during the entire event bubbling process.
+- `event.currentTarget`：The element that the event listener is attached to. This element can change as the event bubbles up or down the DOM tree, but it will always be the same as `this` inside the event listener function.
 
-- `event.target`：觸發此事件的元素，此元素在整個冒泡過程中不會改變。
-- `event.currentTarget`：綁定此事件的元素，元素會隨著事件傳遞改變，通常和  `this`  指的是同一個元素。
+### Event Delegation
 
-### 事件代理 （Event Delegation）
+Event delegation, which is based on event propagation, is a technique used to optimize event handling by reducing the number of event listeners needed.
 
-捕獲事件和冒泡事件到底有什麼好處，有什麼應用嗎 🤔
+Rather than attaching an event listener to every individual element, a single event listener is attached to a parent element, and events are handled as they propagate up or down the DOM tree.
 
-試想一個情境，假設同時有很多元素都有相同的事件要處理，與其在每個元素上都加上事件處理器，不如**利用事件冒泡的特性，統一在它們的父層元素處理，**這就是事件代理**。**
+This can improve performance and make code more efficient and maintainable, especially in cases where there are many elements with the same event handling requirements.
 
-💩 在每個元素上加上事件處理器
+💩 Attaching an event listener to every individual element
 
 ```html
 <ol id="list">
@@ -178,7 +182,7 @@ link.addEventListener('click', function (e) {
 </ol>
 ```
 
-✅ 在父層加上一個事件處理器，統一處理相同的事件
+✅ A single event listener is attached to a parent element
 
 ```html
 <ol id="list">
@@ -192,17 +196,16 @@ link.addEventListener('click', function (e) {
   const list = document.getElementById('list');
 
   list.addEventListener('click', (e) => {
-    const li = e.target;
+    const li = e.target.closest('li');
 
-    // 檢查 li 是否在 list 裡面
-    if (!li || !list.contains(li)) return;
+    if (!li) return;
 
     console.log(li.dataset.num);
   });
 </script>
 ```
 
-參考來源:
+Reference:
 
 1. [https://blog.techbridge.cc/2017/07/15/javascript-event-propagation/](https://blog.techbridge.cc/2017/07/15/javascript-event-propagation/)
 2. [https://shubo.io/event-bubbling-event-capturing-event-delegation/](https://shubo.io/event-bubbling-event-capturing-event-delegation/)
