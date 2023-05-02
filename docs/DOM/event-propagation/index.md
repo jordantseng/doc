@@ -2,26 +2,26 @@
 
 ### TL;DR
 
-- 事件傳遞可以依序分為三個階段：捕獲（Capturing）、目標（Target）、冒泡（Bubbling）。
+- 事件傳遞可以依序分為三個階段：捕獲（capturing）、目標（target）、冒泡（bubbling）。
 - `event.stopPropagation` 用來取消事件的傳遞，`event.preventDefault` 則用來取消瀏覽器預設的行為。
-- `event.target` 為觸發事件的元素，`event.currentTarget` 為事件傳遞時觸發事件的元素。
-- 事件代理（event delegation）是將事件處理器綁定到父層元素，透過事件傳遞統一處理相同類型的事件。
+- `event.target` 為最初觸發事件的元素，`event.currentTarget` 為當前事件傳遞時被綁定的元素。
+- 事件代理（event delegation）是一種技巧，讓父元素處理子元素的事件，而不是每個子元素都有自己的事件處理器。
 
-### 事件傳遞的三個階段
+### 什麼是事件傳遞
+
+事件傳遞指的是事件通過 DOM tree 傳遞的方式。
 
 事件傳遞可以分為三個階段：
 
-1. 捕獲（Capturing）：事件由**根元素往下傳遞**，直到找到觸發事件的元素。
-2. 目標（Target）：事件找到觸發事件的元素，並執行其事件處理器（event handler）。
-3. 冒泡（Bubbling）：事件由**觸發事件的元素往上傳遞**，直到回到根元素。
+1. 捕獲（Capturing）：事件由**最外層的元素開始向下傳遞**，直到找到觸發事件的元素。
+2. 目標（Target）：事件會在找到觸發事件的元素後停止傳遞，然後在該元素上執行其事件處理器。
+3. 冒泡（Bubbling）：事件由**觸發事件的元素往上傳遞**，直到回到最外層的元素。
 
 ![eventflow.png](./eventflow.png)
 
-### 事件捕獲（Capturing）
+### 捕獲階段（Capturing）
 
-由根元素往下找目標元素的過程。
-
-當使用  `addEventListener(event, handler)`  的時候，**預設只會監聽事件傳遞的目標和冒泡階段**，如果要監聽捕獲階段，就必須在  `addEventListener()`  中第三個參數代入  `true`。
+當使用  `addEventListener(event, handler)`  的時候，**預設只會監聽目標和冒泡階段**，如果要監聽捕獲階段，就必須在  `addEventListener()`  中第三個參數代入  `true`。
 
 ```html
 <body>
@@ -49,13 +49,11 @@
   );
 
   // 當 button 被點擊時，由於 eventListener 第三個參數為 true
-  // 因此將會監聽捕獲事件，因此依序印出 body, button
+  // 會監聽捕獲事件，因此依序印出 body, button
 </script>
 ```
 
-### 事件冒泡（Bubbling）
-
-在目標階段執行目標元素的事件處理器後，由目標元素往上傳遞至根元素的過程。
+### 冒泡階段（Bubbling）
 
 ```html
 <body onclick="console.log('body')">
@@ -63,15 +61,15 @@
     <button onclick="console.log('button')">button</button>
   </div>
 </body>
-
-// 當 button 被點擊時，依序印出 button div body
+<!-- 當 button 被點擊時，依序印出 'button' 'div' 'body' -->
+<!-- 印出 'div' 和 'body' 是由於事件向上冒泡 -->
 ```
 
-### 取消事件傳遞 (event.stopPropagation)
+### `event.stopPropagation`
 
-在實務上，我們有時候不想要事件傳遞，只想要目標元素的事件被觸發，不想要其他元素的事件也被觸發。
+實務上，我們有時候不想要事件傳遞，只想要目標元素的事件被觸發，不想繼續觸發上層元素的事件處理器。
 
-這時候我們就可以加上 `event.stopPropagation()`來取消事件的傳遞。
+這時候我們可以加上 `event.stopPropagation()` 來取消事件傳遞。
 
 ```html
 <body>
@@ -91,11 +89,13 @@
     console.log('button');
   });
 
-  // 當 button 被點擊時，由於 e.stopPropagation，事件將不會繼續冒泡，因此只會印出 button
+  // 當 button 被點擊時，由於 e.stopPropagation，事件將不會繼續冒泡，因此只會印出 'button'
 </script>
 ```
 
-❗️ 當在**捕獲階段取消事件傳遞**時，後續的目標、冒泡階段皆不會發生。
+:::caution 注意
+如果在**捕獲階段取消事件傳遞**，後續的目標、冒泡階段皆不會發生。
+:::
 
 ```html
 <body>
@@ -131,41 +131,37 @@
     console.log('button');
   });
 
-  // 只會印出 capturing body，因為在捕獲階段就取消事件往下繼續傳遞
+  // 當 button 被點擊時，由於捕獲階段就取消事件繼續傳遞，因此只會印出 'capturing body'
 </script>
 ```
 
-### 取消預設行為 （event.preventDefault）
+### `event.preventDefault`
 
-`event.preventDefault()`經常與 `event.stopPropagation()` 搞混。
+`event.preventDefault()` 用於取消事件相關聯的瀏覽器預設行為，例如連結跳轉頁面或提交表單，它不會影響事件傳遞。
 
-`event.stopPropagation()`是用來取消事件的傳遞。
+如下方程式碼所示，當點擊 `<a>` 時，瀏覽器的預設行為是跳轉到另一個頁面。
 
-`event.preventDefault()`主要是用來取消預設的瀏覽器行為，與事件傳遞並無關係。
-
-如下方程式碼所示，當使用者點擊 a 標籤的時候，瀏覽器預設的行為是跳轉到不同的頁面，然而可以透過`event.preventDefault()`來取消 a 標籤跳轉的預設行為，來執行開發人員想要的行為。
+然而，使用 `event.preventDefault()` 可以取消此預設行為，使開發人員能夠執行所需的行為。
 
 ```js
 const link = document.querySelector('a');
 
 link.addEventListener('click', function (e) {
   e.preventDefault(); // 取消預設行為
-  console.log('clicked'); // 執行開發人員想要的行為
+  console.log('clicked'); // 執行開發人員所需的行為
 });
 ```
 
-### event.target vs. event.currentTarget
+### `event.target` vs. `event.currentTarget`
 
-`event.target` 與 `event.currentTarget` 也是一個經常搞混的概念。
-
-- `event.target`：觸發此事件的元素，此元素在整個冒泡過程中不會改變。
-- `event.currentTarget`：綁定此事件的元素，元素會隨著事件傳遞改變，通常和  `this`  指的是同一個元素。
+- `event.target`：觸發事件的元素，此元素在整個事件傳遞中不會改變。
+- `event.currentTarget`：當前事件傳遞被綁定的元素，會隨著事件傳遞而改變，通常和 `this`  指的是同一個元素。
 
 ### 事件代理 （Event Delegation）
 
-捕獲事件和冒泡事件到底有什麼好處，有什麼應用嗎 🤔
+事件代理是利用事件傳遞的機制，將事件處理交給父層元素處理，從而減少事件監聽器的數量。
 
-試想一個情境，假設同時有很多元素都有相同的事件要處理，與其在每個元素上都加上事件處理器，不如**利用事件冒泡的特性，統一在它們的父層元素處理，**這就是事件代理**。**
+這可以提升程式碼的效能以及可讀性，尤其是在多個相同事件處理器的元素的情況下。
 
 💩 在每個元素上加上事件處理器
 
@@ -192,10 +188,9 @@ link.addEventListener('click', function (e) {
   const list = document.getElementById('list');
 
   list.addEventListener('click', (e) => {
-    const li = e.target;
+    const li = e.target.closest('li');
 
-    // 檢查 li 是否在 list 裡面
-    if (!li || !list.contains(li)) return;
+    if (!li) return;
 
     console.log(li.dataset.num);
   });

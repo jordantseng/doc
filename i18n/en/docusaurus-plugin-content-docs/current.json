@@ -31,6 +31,10 @@
     "message": "Internet Security",
     "description": "The label for category 網路安全 in sidebar tutorialSidebar"
   },
+  "sidebar.tutorialSidebar.category.資料結構": {
+    "message": "Data Structure",
+    "description": "The label for category 資料結構 in sidebar tutorialSidebar"
+  },
   "sidebar.tutorialSidebar.category.面試手寫題": {
     "message": "Handwriting Questions",
     "description": "The label for category 面試手寫題 in sidebar tutorialSidebar"
