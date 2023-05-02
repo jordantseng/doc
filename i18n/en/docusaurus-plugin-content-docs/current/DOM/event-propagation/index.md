@@ -9,7 +9,7 @@
 
 ### What is Event Propagation
 
-In JavaScript, event propagation refers to the way events are propagated (or passed along) through the DOM tree.
+Event propagation refers to the way events are propagated (or passed along) through the DOM tree.
 
 There are three phases of event propagation: **capturing**, **target**, and **bubbling**.
 
@@ -136,7 +136,7 @@ If event propagation is cancelled during the capturing phase, subsequent target 
   });
 
   // As event propagation is cancelled during the capturing phase
-  // Only 'capturing body' will be logged
+  // When the button is clicked, only 'capturing body' will be logged
 </script>
 ```
 
