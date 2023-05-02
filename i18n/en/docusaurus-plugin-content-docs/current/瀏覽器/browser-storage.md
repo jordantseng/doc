@@ -2,7 +2,7 @@
 
 ### TL;DR
 
-Cookie、Session、LocalStorage 都是在前端網頁中存儲資料的方式，但是它們之間有著不同的特點和用途。
+Cookie、SessionStorage、LocalStorage 都是在前端網頁中存儲資料的方式，但是它們之間有著不同的特點和用途。
 
 1. Cookie
 
