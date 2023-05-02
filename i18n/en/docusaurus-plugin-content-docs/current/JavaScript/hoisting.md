@@ -1,36 +1,38 @@
-# 提升
+# Hoisting
 
 ### TL;DR
 
-- 提升就是**變數**和**函式宣告（function declaration）**被提升到作用域頂端的行為。
-- 提升並不是真的移動程式碼，而是與 JavaScript 引擎編譯的過程有關。
-- 編譯過程分為創造階段和執行階段，創造階段會建立記憶體位置給變數，而執行階段則會進行賦值。
+- **Variable** and **function declarations** are "hoisted" to the top of their respective scope.
+- Hoisting doesn't actually move the code, but is related to the compilation process of the JavaScript engine.
+- The compilation process is divided into a **creation phase** and an **execution phase**. During the creation phase, memory locations are created for variables, while during the execution phase, values are assigned.
 
-### **什麼是提升 （hoisting）**
+### What is hoisting
 
-就語意來說，提升就是**變數**和**函式宣告（function declaration）**被提升到作用域頂端的行為。
+In JavaScript, hoisting refers to the behavior of variables and function declarations being lifted to the top of their scope.
+
+Variable declarations using `var`, `let`, or `const` are all hoisted.
+
+However, the term "hoisting" can be misleading, as it implies that the code is physically moved, when in reality it's a part of the compilation process.
 
 ```jsx
-// 實際上的程式碼
+// actual code
 console.log(a);
 var a = 1;
 
-// 提升後的程式碼
+// interpreted by the JavaScript engine as
 var a;
 console.log(a);
 a = 1;
 ```
 
-不論透過 `var`、`let` 還是 `const` 宣告變數，都會有提升的行為。然而提升一詞可能會讓人誤以為程式碼移動了，實際上程式碼並不是真的被移動，而是與 JavaScript 引擎編譯的過程有關。
+### Compilation Process
 
-### JavaScript 編譯過程
+In JavaScript, the compilation process can be divided into two phases：
 
-編譯過程可以分成兩個階段：
+1. **Creation**：The JavaScript engine creates memory space for variables and function declarations. For variables, the default value is `undefined`, while for function declarations, the default value is the function itself.
+2. **Execution**：The program is executed line by line, and values are assigned based on the executed code.
 
-1. **創造（creation）**：**逐行執行程式前**，JavaScript 引擎會先建立記憶體位置給**變數**和**函式宣告，**需要注意的是建立變數記憶體位置時預設值為 `undefined`，而建立函式宣告記憶體位置時，預設值為函式宣告本身。
-2. **執行（execution）**：**逐行執行程式時**，根據執行的程式碼進行給值。
-
-以下方程式碼為例
+Taking the following code as an example：
 
 ```jsx
 console.log(a); // undefined
@@ -42,42 +44,34 @@ function logName() {
 }
 ```
 
-JavaScript 編譯的過程為：
+The JavaScript compilation process is as follows：
 
-1. **創造階段：**
+1. **Creation**
 
-- 建立一個記憶體位置名為 `a`，預設值為 `undefined`。
-- 建立一個記憶體位置名為 `logName`，預設值為 `logName` 函式宣告本身。
+- A memory location named `a` is created, with a default value of `undefined`.
+- A memory location named `logName` is created, with a default value of the `logName` function declaration itself.
 
-2. **執行階段：**
+2. **Execution**：
 
-- 執行 `console.log(a)` 印出 `undefined`，因爲 `a` 預設值為 `undefined`。
-- 執行 `var a = 1` 賦予變數 `a` 初始值 1。
-- 執行`logName()`印出 jordan，因爲 `logName` 預設值為 `logName` 本身。
+- `console.log(a)` is executed, outputting `undefined`, because the default value of a is `undefined`.
+- `var a = 1` is executed, assigning an initial value of 1 to the variable `a`.
+- `logName()` is executed, outputting "jordan", because the default value of `logName` is the logName function declaration itself.
 
-### 常見問題
+### `undefined` vs. not defined
 
-1. **結果判讀**
+- `undefined`：A primitive value that is automatically assigned to variables during that have been declared but have not been initialized with a value.
+- not defined：A variable that has not been declared in the current scope or in any parent scope. This will result in a `ReferenceError` when trying to access it.
 
-   ```jsx
-   b();
-   console.log(a);
+```jsx
+var a;
 
-   function b() {
-     console.log('b');
-   }
-   ```
+console.log(a); // undefined
+console.log(b); // ReferenceError: a is not defined
+```
 
-   **Answer：**
+### FAQ
 
-   undefined 和 not defined 是不一樣的，undefined 是一個值，not defined 則是沒有定義過這個變數。
-
-   ```jsx
-   // b
-   // ReferenceError: a is not defined
-   ```
-
-2. **結果判讀**
+1. **Determine the result**
 
    ```jsx
    let a = 1;
@@ -89,9 +83,13 @@ JavaScript 編譯的過程為：
 
    **Answer：**
 
-   由於 `let` 為 block scope，在創造階段會建立一個全域變數 `a` 的記憶體位置，也會建立一個 block `a` 的記憶體位置，在執行階段執行 `console.log(a)` 時，由於暫時性死區的關係，block `a` 尚未被給予初始值，因此會拋出 Reference Error 的錯誤。
+   The result of the code will be a `ReferenceError` because of the concept of temporal dead zone (TDZ) in JavaScript.
 
-3. **結果判讀**
+   In the creation phase, memory space is created for the global variable `a` and a local variable `a` inside the block.
+
+   During the execution phase, when `console.log(a)` is executed inside the block, the local variable `a` is in the TDZ as it has not been initialized yet. Therefore, trying to access `a` at this point will result in a `ReferenceError`.
+
+2. **Determine the result**
 
    ```jsx
    var logName = function () {
@@ -107,20 +105,18 @@ JavaScript 編譯的過程為：
 
    **Answer：**
 
-   在瀏覽器的情況下
+   **Creation**：
 
-   創造階段：
+   1. When both variable and function declaration use the same name, the function declaration takes priority over the variable declaration.
+   2. Create memory space for the function `logName` with a default value of `logName` itself.
 
-   1. 建立變數 `logName` 的記憶體位置，預設值為 `undefined` 。
-   2. 建立函數 `logName` 的記憶體位置，預設值為 `logName` 本身。
-   3. 函數宣告式權重比變數宣告高，因此目前 `logName` 的預設值為函式宣告`logName` 本身
+   **Execution**：
 
-   執行階段：
+   1. The function `logName` is reassigned to `function () { console.log('jordan'); }`.
 
-   4. 給予 `logName` 初始值 `function () { console.log('jordan'); }`
-   5. 執行 `logName()` 並印出 `jordan`
+   2. Execute `logName()` and print out 'jordan'.
 
-參考來源：
+Reference：
 
 1. [https://pjchender.blogspot.com/2015/12/javascript-hoisting.html](https://pjchender.blogspot.com/2015/12/javascript-hoisting.html)
 2. [https://developer.mozilla.org/zh-TW/docs/Glossary/Hoisting](https://developer.mozilla.org/zh-TW/docs/Glossary/Hoisting)
