@@ -2,14 +2,71 @@
 
 ### TL;DR
 
-- 使用 Promise 可以減少 callback hell，提高程式碼可讀性。
-- Promise 是一個**等待非同步操作完成的物件，**Promise 只會處於 `pending` 、 `fulfilled` 、 `rejected` 其中一種狀態。
+- Promise is an object that waits for an asynchronous operation to complete.
+- Promise can only be in one of three states： `pending`, `fulfilled`, or `rejected`.
+- Promise can help reduce callback hell and improve code readability.
 
-### 為什麼要使用 Promise
+### What is Promise
 
-在了解什麼是 Promise 之前，我們需要先知道為什麼要使用 Promise 🤔
+In JavaScript, Promise is an object that is used to handle asynchronous operations.
 
-在 ES6 以前，JavaScript 處理異步的方式大多都是透過回調函式（callback），但 callback 的寫法存在一個很大的問題，當需要處理多個異步操作時，程式碼會不斷往內嵌套，導致可讀性非常差，也被稱為「callback 地獄」（callback hell）。
+It provides a way to write asynchronous code that looks more like synchronous code, making it easier to understand and maintain.
+
+A Promise can be in one of three states：
+
+1.  **Pending** - Initial state, neither fulfilled nor rejected.
+2.  **Fulfilled** - The operation completed successfully, and the promise has a resulting value.
+3.  **Rejected** - The operation failed, and the promise has a reason for the failure.
+
+#### How to create a Promise
+
+Promises can be created using the `Promise` constructor, which takes a function as a parameter, called the **executor** function, that defines the asynchronous operation.
+
+The **executor** function has two callback functions as parameters：
+
+1. `resolve(value)`: When called, this function fulfills the Promise with a value.
+2. `reject(error)`: When called, this function rejects the Promise with an error.
+
+Promises also can be chained using the methods below, which allows developer to define a sequence of asynchronous operations that depend on each other.
+
+1. `then(fulfilledFn, rejectedFn)`：Calls `fulfilledFn` if the Promise is fulfilled, and `rejectedFn` if the Promise is rejected, and returns a new fulfilled Promise.
+2. `catch(rejectedFn)`：Calls `rejectedFn` if the Promise is rejected and returns a new fulfilled Promise.
+3. `finally(callback)`：Calls the callback function regardless of whether the Promise is fulfilled or rejected, and returns a new fulfilled or rejected Promise.
+
+```js
+const promise = new Promise(executor);
+
+function executor(resolve, reject) {
+  setTimeout(() => {
+    const randomNum = Math.floor(Math.random() * 100);
+    if (randomNum % 2 === 0) {
+      resolve('isEven');
+    } else {
+      reject('isOdd');
+    }
+  }, 1000);
+}
+
+promise
+  .then((val) => {
+    console.log(val);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  .finally(() => {
+    console.log('finally');
+  });
+
+// after 1 sec, if randomNum is even => 'isEven' 'finally'
+// after 1 sec, if randomNum is odd => 'isOdd' 'finally'
+```
+
+### Why Promise
+
+Prior to ES6, callback functions were the primary way to handle asynchronous operations in JavaScript.
+
+However, the use of callbacks can lead to deeply nested and unreadable code, especially when dealing with multiple asynchronous operations, which is commonly referred to as "callback hell."
 
 ```js
 const waitOneSecond = (cb) => {
@@ -18,7 +75,7 @@ const waitOneSecond = (cb) => {
   }, 1000);
 };
 
-// 程式碼不斷往內嵌套，可讀性不佳
+// deeply nested and unreadable code
 waitOneSecond(() => {
   console.log('1 sec passed');
   waitOneSecond(() => {
@@ -30,7 +87,7 @@ waitOneSecond(() => {
 });
 ```
 
-雖然還沒介紹什麼是 Promise，但是如果我們先把上面這段程式碼改寫成 Promise 寫法的話，會發現可讀性大大的提升。
+If we refactor the code above using Promises, the code becomes cleaner and more readable.
 
 ```jsx
 const waitOneSecond = () => {
@@ -41,7 +98,7 @@ const waitOneSecond = () => {
   });
 };
 
-// 程式碼維持一層嵌套，較容易閱讀
+// maintain a single level of nesting, making it more readable and easier to understand
 waitOneSecond()
   .then(() => {
     console.log('1 sec passed');
@@ -56,60 +113,11 @@ waitOneSecond()
   });
 ```
 
-### 什麼是 Promise
-
-Promise 是一個**等待非同步操作完成的物件**，當事件完成時，Promise 根據操作結果是成功、或者失敗，做相對應的處理。
-
-Promise 只會處於下面三種狀態之一：
-
-1.  `pending` - 初始狀態（進行中）
-2.  `fulfilled` - 事件已完成
-3.  `rejected` - 事件已失敗
-
-### 如何建立 Promise
-
-透過 Promise 的**建構函式**，搭配 `new` 建立一個 Promise 物件。
-
-```jsx
-const promise = new Promise((resolve, reject) => {});
-```
-
-Promise 建構函式會接收一個函式作為參數，這個函式又稱為 executor，其又包含了兩個函式參數。
-
-1. **resolve(value)**：如下方所示，當 randomNum 是偶數時，會呼叫 `resolve` 並回傳 isEven，Promise 被 `fulfilled` ，事件已完成。
-2. **reject(error)**：如下方所示，當 randomNum 是奇數時，會呼叫 `reject` 並回傳 isOdd，Promise 被 `rejected` ，事件已失敗。
-
-Promise 提供了三個主要的方法：
-
-1. **then(fulfilledFn, rejectedFn)：**當 Promise 被 `fulfilled` 後，呼叫 fulfilledFn、當 Promise 被 `rejected` 後，呼叫 rejectedFn，最後回傳一個新的 **fulfilled** Promise。
-2. **catch(rejectedFn)：**當 Promise 被 `rejected` 後，呼叫 rejectedFn，回傳一個新的 `fulfilled` Promise。
-3. **finally(callback)：**不論 Promise 被 `fulfilled` 或 `rejected` ，都會呼叫 callback，並回傳一個新的 `fulfilled` 或 `reject` 的 Promise。
-
-```js
-new Promise((resolve, reject) => {
-  setTimeout(() => {
-    const randomNum = Math.floor(Math.random() * 100);
-    if (randomNum % 2 === 0) {
-      resolve('isEven');
-    } else {
-      reject('isOdd');
-    }
-  }, 1000);
-})
-  .then((val) => {
-    console.log(val);
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-  .finally(() => {
-    console.log('finally');
-  });
-```
-
 ### Promise.race(promises)
 
-將多個 Promise 包裝成一個新的 Promise，並回傳**一個狀態最快改變**的結果
+`Promise.race` takes an array of Promises as argument and returns a new Promise.
+
+The new Promise is settled (fulfilled or rejected) as soon as the first Promise in the array is settled.
 
 ```jsx
 const p1 = new Promise((resolve, reject) => {
@@ -124,14 +132,17 @@ Promise.race([p1, p2])
     console.log(value);
   })
   .catch((err) => {
-    console.log(err);
-    // 0.1秒後，p2 比 p1 狀態快改變（ pending -> rejected ），印出 2
+    console.log(err); // p2 settles first and rejects with the value of 2
   });
 ```
 
 ### Promise.any(promises)
 
-將多個 Promise 包裝成一個新的 Promise，並回傳**一個狀態最快被 `fulfilled` **的結果， 如果全部 Promise 都被 `rejected` ，則回傳 [AggregateError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError)。
+`Promise.any` takes an array of Promises as input and returns a new Promise.
+
+The new Promise is fulfilled as soon as one of the input Promises is fulfilled.
+
+If all input Promises are rejected, then an [AggregateError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError) will be returned.
 
 ```js
 const p1 = new Promise((resolve, reject) => {
@@ -143,13 +154,15 @@ const p2 = new Promise((resolve, reject) => {
 
 Promise.any([p1, p2]).then(function (value) {
   console.log(value);
-  // 0.5秒後，p1 狀態 fulfilled，印出 1
+  // p1 fulfills with the value of 1
 });
 ```
 
 ### Promise.all(promises)
 
-將多個 Promise 包裝成一個新的 Promise，當**所有**的 Promise 被 `fulfilled` 後，回傳一個**陣列依序包含各 Promise `fulfilled` 的值**。
+`Promise.all` takes an array of Promises as input and returns a new Promise.
+
+The new Promise is fulfilled as soon as all of the input Promises are fulfilled.
 
 ```js
 const p1 = Promise.resolve(1);
@@ -159,11 +172,11 @@ const p3 = new Promise((resolve, reject) => {
 });
 
 Promise.all([p1, p2, p3]).then(function (values) {
-  console.log(values); // 1秒後印出 [1, 2, 3]
+  console.log(values); // after 1 second, [1, 2, 3]
 });
 ```
 
-當其中一個 Promise 被 `rejected` 後，則回傳該 Promise `rejected` 的值。
+If any of the input Promises is rejected, the new Promise is rejected with the reason of the first rejected Promise.
 
 ```js
 const p1 = Promise.resolve(1);
@@ -176,13 +189,22 @@ Promise.all([p1, p2])
     console.log(values);
   })
   .catch((error) => {
-    console.log(error); // 1秒後，p2狀態 rejected，印出 2
+    console.log(error); // after 1 second, 2
   });
 ```
 
 ### Promise.allSettled(promises)
 
-將多個 Promise 包裝成一個新的 Promise，當**所有**的 Promise **狀態改變**後，回傳一個**陣列依序包含各 Promise 的狀態和值**。
+`Promise.allSettled` takes an array of Promises as input and returns a new Promise.
+
+The new Promise is fulfilled when all input Promises are settled, which means that they have either fulfilled or rejected.
+
+The resulting Promise resolves to an array of objects representing the state of each Promise.
+
+Each object has two properties:
+
+- `status`：A string indicating the Promise status, either "fulfilled" or "rejected"
+- `value` or `reason`：The fulfilled value or rejection reason of the Promise, respectively.
 
 ```jsx
 const p1 = Promise.resolve(1);
@@ -192,7 +214,7 @@ const p4 = Promise.reject(4);
 
 Promise.allSettled([p1, p2, p3, p4]).then((values) => {
   console.log(values);
-  // 1秒後印出
+  // after 1 second
   // [
   //   { status: 'fulfilled', value: 1 },
   //   { status: 'fulfilled', value: 2 },
@@ -204,15 +226,31 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
 
 ### Promise.resolve(value)
 
-將一個物件轉型為 `fulfilled` 的 Promise（如果它不是一個 Promise）。
+`Promise.resolve(value)` creates and returns a new Promise object that is resolved with a given value.
+
+This method is useful for creating a Promise from a non-Promise value or for converting a synchronous operation into an asynchronous one by returning a resolved Promise immediately.
+
+```jsx
+const promise = Promise.resolve('Hello World');
+promise.then((value) => {
+  console.log(value); // Hello World
+});
+```
 
 ### Promise.reject(reason)
 
-將一個物件轉型為 `rejected` 的 Promise（如果它不是一個 Promise）。
+`Promise.reject(reason)` returns a new Promise object that is rejected with the given reason.
 
-### 常見問題
+```jsx
+const promise = Promise.reject('Hello World');
+promise.catch((reason) => {
+  console.log(reason); // Hello World
+});
+```
 
-1. **結果判讀**
+### FAQ
+
+1. **Determine the result**
 
    ```jsx
    const promise = new Promise((resolve, reject) => {
@@ -230,7 +268,7 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
 
    **Answer:**
 
-   呼叫 Promise 建構函式，executor 將會被立即執行。
+   This code creates a new Promise and invokes an executor function that immediately logs 1, then calls resolve(), and logs 2.
 
    ```jsx
    // 1
@@ -239,7 +277,7 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
    // 3
    ```
 
-1. **結果判讀**
+2. **Determine the result**
 
    ```jsx
    Promise.resolve()
@@ -256,12 +294,27 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
 
    **Answer:**
 
-   `then` 回傳的結果為 `fulfilled` 後的值。
+   `then` method returns a new `fulfilled` Promise.
 
    ```jsx
    // then:  Error: error!!!
    ```
 
-參考來源:
+   If you want to reject the Promise and go to the catch block, you need to explicitly throw the Error object in the first then callback.
+
+   ```jsx
+   Promise.resolve()
+     .then(() => {
+       throw new Error('error!!!');
+     })
+     .then((res) => {
+       console.log('then: ', res);
+     })
+     .catch((err) => {
+       console.log('catch: ', err);
+     });
+   ```
+
+Reference:
 
 1.  [https://www.fooish.com/javascript/ES6/Promise.html](https://www.fooish.com/javascript/ES6/Promise.html)
