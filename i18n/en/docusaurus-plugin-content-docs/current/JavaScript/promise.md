@@ -27,11 +27,11 @@ The **executor** function has two callback functions as parameters：
 1. `resolve(value)`: When called, this function fulfills the Promise with a value.
 2. `reject(error)`: When called, this function rejects the Promise with an error.
 
-Promises can be chained using the methods below, which allows developer to define a sequence of asynchronous operations that depend on each other.
+Promises also can be chained using the methods below, which allows developer to define a sequence of asynchronous operations that depend on each other.
 
-1. `then(fulfilledFn, rejectedFn)`：Calls `fulfilledFn` if the Promise is fulfilled, and `rejectedFn` if the Promise is rejected, and returns a new `fulfilled` Promise.
-2. `catch(rejectedFn)`：Calls `rejectedFn` if the Promise is rejected and returns a new `fulfilled` Promise.
-3. `finally(callback)`：Calls the callback function regardless of whether the Promise is `fulfilled` or `rejected`, and returns a new `fulfilled` or `rejected` Promise.
+1. `then(fulfilledFn, rejectedFn)`：Calls `fulfilledFn` if the Promise is fulfilled, and `rejectedFn` if the Promise is rejected, and returns a new fulfilled Promise.
+2. `catch(rejectedFn)`：Calls `rejectedFn` if the Promise is rejected and returns a new fulfilled Promise.
+3. `finally(callback)`：Calls the callback function regardless of whether the Promise is fulfilled or rejected, and returns a new fulfilled or rejected Promise.
 
 ```js
 const promise = new Promise(executor);
@@ -115,7 +115,7 @@ waitOneSecond()
 
 ### Promise.race(promises)
 
-`Promise.race` takes an array of Promises as input and returns a new Promise.
+`Promise.race` takes an array of Promises as argument and returns a new Promise.
 
 The new Promise is settled (fulfilled or rejected) as soon as the first Promise in the array is settled.
 
