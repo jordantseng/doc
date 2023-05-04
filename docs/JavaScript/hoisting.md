@@ -55,6 +55,35 @@ JavaScript 編譯的過程為：
 - 執行 `var a = 1` 賦予變數 `a` 初始值 1。
 - 執行`logName()`印出 jordan，因爲 `logName` 預設值為 `logName` 本身。
 
+### 暫時性死區（Temporal Dead Zone）
+
+不論透過 `var`、`let` 還是 `const`， 宣告變數都會有提升的行為，但是為什麼以下程式碼會報錯呢 🤔
+
+```jsx
+console.log(a); // ReferenceError: Cannot access 'a' before initialization
+let a = 1;
+```
+
+這是由於**暫時性死區**的關係。
+
+暫時性死區（Temporal Dead Zone，簡稱 TDZ）是在宣告變數和初始化該變數之間的區域，該區域中不能使用該變數，否則會拋出 `ReferenceError` 。
+
+暫時性死區能夠避免變數被宣告前意外地被使用，從而減少代碼錯誤，增加程式碼的可靠性。
+
+```jsx
+console.log('Jordan');
+console.log('John');
+console.log(a);
+// 以上為變數 a 的暫時性死區，該區域 a 不能夠被使用
+const a = 1; // 直到 a 被初始化，a 才能被使用
+```
+
+:::note
+`var` 的 TDZ 在執行階段一開始就結束了，而 `let` 和 `const` 的 TDZ 在變數初始化時結束。
+
+所以將以上的程式碼改用 `var` 宣告，並不會拋出 `ReferenceError`。
+:::
+
 ### `undefined` vs. not defined
 
 - `undefined`：變數在宣告時沒有賦予值，則它會自動被賦予一個特殊值 `undefined`，代表該變數尚未有值。
