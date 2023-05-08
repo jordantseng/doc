@@ -57,6 +57,39 @@ The JavaScript compilation process is as follows：
 - `var a = 1` is executed, assigning an initial value of 1 to the variable `a`.
 - `logName()` is executed, outputting "jordan", because the default value of `logName` is the logName function declaration itself.
 
+### Temporal Dead Zone
+
+In JavaScript, variables are hoisted regardless of whether they are declared with `var`, `let`, or `const`.
+
+However, why does the following code throw an error 🤔
+
+```jsx
+console.log(a); // ReferenceError: Cannot access 'a' before initialization
+let a = 1;
+```
+
+This is due to the concept of **Temporal Dead Zone** （TDZ） in JavaScript.
+
+The Temporal Dead Zone is the period of time between when a variable is declared and when it is initialized
+
+During the TDZ, any attempt to access the variable will result in a `ReferenceError`.
+
+The Temporal Dead Zone can prevent variables from being accidentally used before they are declared, thereby reducing code errors and increasing code reliability.
+
+```jsx
+console.log('Jordan');
+console.log('John');
+console.log(a);
+// the above is the Temporal Dead Zone for variable a, which cannot be accessed
+const a = 1; // a can only be accessed after it has been initialized
+```
+
+:::note
+The TDZ of `var` ends at the beginning of the execution phase, whereas the TDZ of `let` and `const` ends when the variable is initialized.
+
+So if the above code is declared by `var`, it will not throw a `ReferenceError`.
+:::
+
 ### `undefined` vs. not defined
 
 - `undefined`：A primitive value that is automatically assigned to variables during that have been declared but have not been initialized with a value.
