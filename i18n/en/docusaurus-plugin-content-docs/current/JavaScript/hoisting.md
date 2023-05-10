@@ -70,25 +70,35 @@ let a = 1;
 
 This is due to the concept of **Temporal Dead Zone** （TDZ） in JavaScript.
 
-The Temporal Dead Zone is the period of time between when a variable is declared and when it is initialized
+The Temporal Dead Zone is the area of a block where a variable is inaccessible until the moment the computer completely initializes it with a value.
 
 During the TDZ, any attempt to access the variable will result in a `ReferenceError`.
 
-The Temporal Dead Zone can prevent variables from being accidentally used before they are declared, thereby reducing code errors and increasing code reliability.
+The TDZ can prevent variables from being accidentally used before they are declared, thereby reducing code errors and increasing code reliability.
 
 ```jsx
 console.log('Jordan');
 console.log('John');
 console.log(a);
-// the above is the Temporal Dead Zone for variable a, which cannot be accessed
-const a = 1; // a can only be accessed after it has been initialized
+// the above is the TDZ for variable a, which cannot be accessed
+const a = 1; // The TDZ of let and const ends when the variable is initialized
 ```
 
 :::note
-The TDZ of `var` ends at the beginning of the execution phase, whereas the TDZ of `let` and `const` ends when the variable is initialized.
+The TDZ of `let` and `const` ends when the variable is initialized.
 
-So if the above code is declared by `var`, it will not throw a `ReferenceError`.
+The TDZ of `var` ends at the beginning of the execution phase.
 :::
+
+In this example code, it will not throw a `ReferenceError` because the variable `a` is declared by `var`.
+
+```jsx
+// The TDZ of `var` ends at the beginning of the execution phase
+console.log('Jordan');
+console.log('John');
+console.log(a);
+var a = 1;
+```
 
 ### `undefined` vs. not defined
 
