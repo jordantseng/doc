@@ -1,14 +1,15 @@
-# this
+# This
 
 ### TL;DR
 
-- 一般函式： `this` 指向全域物件。
-- 物件方法： `this` 指向物件本身。
-- 建構函式 / Class： `this` 指向物件實例。
-- 事件監聽： `this` 指向綁定的 DOM 元素。
-- `this` 通常都與函式有關， 因此有個快速的判斷法：`this` 就是呼叫這個函式的物件。
+- 全域環境：`this` 指向全域物件。
+- 一般函式：`this` 指向全域物件。
+- 物件方法：`this` 指向物件本身。
+- 建構函式 / Class：`this` 指向物件實例。
+- 事件監聽：`this` 指向綁定的 DOM 元素。
 - 箭頭函式：沒有 `this`。
-- call / apply / bind： `this` 指向任意指定的值。
+- call / apply / bind：`this` 指向任意指定的值。
+- `this` 通常都與函式有關， 因此有個快速的判斷法：`this` 就是呼叫這個函式的物件。
 
 ### 什麼是 this
 
@@ -16,11 +17,11 @@
 
 **不同執行環境 / 執行模式：**
 
-在瀏覽器下，非嚴格模式， `this` 預設值為 `window`。
+1. 在瀏覽器下，非嚴格模式， `this` 預設值為 `window`。
 
-在 node.js 下，非嚴格模式， `this` 預設值為 `global`。
+2. 在 node.js 下，非嚴格模式， `this` 預設值為 `global`。
 
-在嚴格模式下，不論執行環境 `this` 預設值皆為 `undefined`。
+3. 在嚴格模式下，不論執行環境 `this` 預設值皆為 `undefined`。
 
 ```jsx
 'use strict';
@@ -120,11 +121,11 @@ log(); // undefined
    console.log(foo() === window); // true
    ```
 
-綜合以上的案例，可以發現 `this` 通常都是在函式內被使用，因此有個快速的判斷法。
+:::tip
+要判斷 `this` 的值，就看這個函式怎麽被呼叫。
 
-```
-✅ 要判斷 this 的值，就看這個函式怎麽被呼叫。換句話說，this 就是呼叫這個函式的物件。
-```
+換句話說，`this` 就是呼叫這個函式的物件。
+:::
 
 ### 指定 this 的值
 
@@ -132,7 +133,7 @@ log(); // undefined
 
 1. **call**
 
-   **function.call(thisArg, x, y, …)：**呼叫 `function(x, y, ...)` ，並將函式的 `this` 綁定為 thisArg。
+   **function.call(thisArg, x, y, …)**：呼叫 `function(x, y, ...)` ，並將函式的 `this` 綁定為 `thisArg。`
 
    ```jsx
    function log(a, b) {
@@ -149,7 +150,7 @@ log(); // undefined
 
 2. **apply**
 
-   **function.apply(thisArg, [x, y, …])：**呼叫 `function(x, y, ...)` ，並將函式的 `this` 綁定為 thisArg。
+   **function.apply(thisArg, [x, y, …])**：呼叫 `function(x, y, ...)` ，並將函式的 `this` 綁定為 thisArg。
 
    apply 和 call 使用方法非常相似，唯一的差別只是 apply 代入的參數為陣列。
 
@@ -168,20 +169,21 @@ log(); // undefined
 
 3. **bind**
 
-   **function.bind(thisArg)：**回傳一個新函式，該函式被呼叫時，將新函式的 `this` 綁定為 thisArg。
+   **function.bind(thisArg, x, y, …)**：回傳一個新函式，該函式被呼叫時，將新函式的 `this` 綁定為 thisArg。
 
    ```jsx
-   function log() {
+   function log(a, b) {
      console.log(this);
+     return a + b;
    }
 
-   const myLog = log.bind('1');
+   const myLog = log.bind('jordan', 1, 2);
 
    log(); // window
-   myLog(); // '1'
+   myLog(); // 'jordan'
    ```
 
-### 常見問題
+### FAQ
 
 1. **結果判讀**
 

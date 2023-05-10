@@ -1,26 +1,27 @@
-# this
+# This
 
 ### TL;DR
 
-- 一般函式： `this` 指向全域物件。
-- 物件方法： `this` 指向物件本身。
-- 建構函式 / Class： `this` 指向物件實例。
-- 事件監聽： `this` 指向綁定的 DOM 元素。
-- `this` 通常都與函式有關， 因此有個快速的判斷法：`this` 就是呼叫這個函式的物件。
-- 箭頭函式：沒有 `this`。
-- call / apply / bind： `this` 指向任意指定的值。
+- Global Environment：`this` refers to the global object.
+- Standalone Function： `this` refers to the global object.
+- Object Method： `this` refers to the object itself.
+- Constructor Function / Class： `this` refers to the object instance.
+- Event Listener： `this` refers to the DOM element.
+- Arrow Function: There is no `this`.
+- call / apply / bind： `this` refers to any specified value.
+- `this` is usually related to functions, so a quick rule of thumb is that `this` refers to the object that called the function.
 
-### 什麼是 this
+### What is `this`
 
-`this` 的值是在執行時決定的，意味著**不同的執行環境**、**不同的模式**和**不同的程式碼前後文**都會有不同的值。
+The value of `this` is determined at runtime, and can vary based on the **execution environments**, **mode**, and **context**.
 
-**不同執行環境 / 執行模式：**
+In different **modes** or **execution environments** ：
 
-在瀏覽器下，非嚴格模式， `this` 預設值為 `window`。
+1. In non-strict mode in browser, the default value of `this` is `window` object.
 
-在 node.js 下，非嚴格模式， `this` 預設值為 `global`。
+2. In non-strict mode in Node.js, the default value of `this` is `global` object.
 
-在嚴格模式下，不論執行環境 `this` 預設值皆為 `undefined`。
+3. In strict mode, regardless of the execution environment, the default value of `this` is `undefined`.
 
 ```jsx
 'use strict';
@@ -32,19 +33,19 @@ function log() {
 log(); // undefined
 ```
 
-在**瀏覽器**下**非嚴格模式**，**不同的程式碼前後文：**
+In non-strict mode in browser, different **context**：
 
-1. **全域環境**
+1. **Global Environment**
 
-   在全域環境下， `this` 指向全域物件 `window`。
+In the global environment, `this` refers to the global object `window`.
 
-   ```jsx
-   console.log(this); // window
-   ```
+```jsx
+console.log(this); // window
+```
 
-2. **一般函式**
+2. **Standalone Function**
 
-   在一般函式內， `this` 指向全域物件 `window`。
+   In a standalone function, `this` refers to the global object `window`.
 
    ```jsx
    function log() {
@@ -54,9 +55,9 @@ log(); // undefined
    log(); // window
    ```
 
-3. **物件的方法**
+3. **Object Method**
 
-   當函式作為物件的方法時， `this` 會指向呼叫它的這個物件本身。
+   When a function is used as a method of an object, `this` refers to the object itself.
 
    ```jsx
    const foo = {
@@ -69,9 +70,9 @@ log(); // undefined
    foo.log(); // { foo: 123, log: [Function] }
    ```
 
-4. **建構函式（Constructor function）/ Class**
+4. **Constructor Function / Class**
 
-   函式作為建構函式或 Class 的方法時， `this` 會指向由它們創造出來的實例（instance）。
+   When a function is used as a constructor function or method of a class, `this` refers to the object instance.
 
    ```jsx
    function Foo(value) {
@@ -99,9 +100,9 @@ log(); // undefined
    boo.log(); // Boo { value: 456, log: [Function] }
    ```
 
-5. **事件監聽**
+5. **Event Listener**
 
-   事件監聽函式的 `this` 會指向綁定監聽事件的 DOM 元素。
+   In an event listener function, `this` refers to the DOM element.
 
    ```jsx
    const input = document.getElementById('input');
@@ -111,28 +112,30 @@ log(); // undefined
    });
    ```
 
-6. **箭頭函式**
+6. **Arrow Function**
 
-   一般來說，當函式被執行時都會建立一個自己的 `this` ，但由於箭頭函式沒有自己的 `this` ，它會透過作用域鏈（scope chain）去繼承其他作用域的 `this`。
+   In general, when a function is executed, it creates its own `this` value.
+
+   However, arrow functions do not have their own `this` value, and they inherit the `this` value of their surrounding scope through the scope chain.
 
    ```jsx
    const foo = () => this;
    console.log(foo() === window); // true
    ```
 
-綜合以上的案例，可以發現 `this` 通常都是在函式內被使用，因此有個快速的判斷法。
+:::tip
+A quick way to determine the value of `this` is to look at how the function is called.
 
-```
-✅ 要判斷 this 的值，就看這個函式怎麽被呼叫。換句話說，this 就是呼叫這個函式的物件。
-```
+In other words, `this` is the object that calls the function.
+:::
 
-### 指定 this 的值
+### Set the value of `this`
 
-由於 `this` 通常都是在函式內被使用，JavaScript 提供了三個函式的方法，讓我們來指定 `this` 的值。
+Since `this` is usually used inside functions, there are three methods to specify the value of `this`.
 
 1. **call**
 
-   **function.call(thisArg, x, y, …)：**呼叫 `function(x, y, ...)` ，並將函式的 `this` 綁定為 thisArg。
+   **function.call(thisArg, x, y, …)**：Calls the `function(x, y, ...)` and binds the `this` of the function to `thisArg`.
 
    ```jsx
    function log(a, b) {
@@ -149,9 +152,9 @@ log(); // undefined
 
 2. **apply**
 
-   **function.apply(thisArg, [x, y, …])：**呼叫 `function(x, y, ...)` ，並將函式的 `this` 綁定為 thisArg。
+   **function.apply(thisArg, [x, y, …])**：Calls the `function(x, y, ...)` and binds the `this` of the function to `thisArg`.
 
-   apply 和 call 使用方法非常相似，唯一的差別只是 apply 代入的參數為陣列。
+   `apply` method is similar to `call` method, the difference is that `apply` method takes an array as the second argument, which represents the arguments to pass to the function.
 
    ```jsx
    function log(a, b) {
@@ -168,22 +171,23 @@ log(); // undefined
 
 3. **bind**
 
-   **function.bind(thisArg)：**回傳一個新函式，該函式被呼叫時，將新函式的 `this` 綁定為 thisArg。
+   **function.bind(thisArg, x, y, …)**： returns a new function that, when called, will have its `this` bound to `thisArg`.
 
    ```jsx
-   function log() {
+   function log(a, b) {
      console.log(this);
+     return a + b;
    }
 
-   const myLog = log.bind('1');
+   const myLog = log.bind('jordan', 1, 2);
 
    log(); // window
-   myLog(); // '1'
+   myLog(); // 'jordan'
    ```
 
-### 常見問題
+### FAQ
 
-1. **結果判讀**
+1. **Determine the result**
 
    ```jsx
    var name = 'jordan1';
@@ -213,11 +217,11 @@ log(); // undefined
 
    person.watch.callName(); // jordan3
 
-   // 由於 name 是透過 var 宣告，name 會被綁定到全域物件 (window)
+   // Since name is declared using var, it is bound to the global object.
    this.name; // jordan1
    ```
 
-2. **改寫以下程式碼，使其印出 ‘jordan’**
+2. **Rewrite the following code to print out 'jordan'**
 
    ```jsx
    const person = {
@@ -233,7 +237,9 @@ log(); // undefined
 
    **Answer:**
 
-   執行 `setTimeout` 的函式並不是物件的方法，只是單純的一般函式，函式在執行時會產生自己的 `this` ，並指向全域物件，因此需要特別去綁定 `this` 的值。
+   The function executed by setTimeout is not a method of an object, but just a regular function.
+
+   When the function is executed, it creates its own `this` and points it to the global object. Therefore, we need to bind the value of `this` specifically.
 
    ```jsx
    // 1. that
@@ -271,7 +277,7 @@ log(); // undefined
    };
    ```
 
-3. **將 `jordan.log` 印出來的 `this` 更改為 `null`**
+3. **How to let `jordan.log()` print out `null`**
 
    ```jsx
    class Person {
@@ -289,12 +295,11 @@ log(); // undefined
    **Answer:**
 
    ```jsx
-   // 就算原本已經有this, 也依然可以被函式方法覆蓋掉
    jordan.log.apply(null); // null
    jordan.log.call(null); // null
    ```
 
-參考來源:
+Reference:
 
 1. [https://medium.com/starbugs/面試-前端工程師一定要會的-js-觀念題-中英對照之上篇-3b0a3feda14f](https://medium.com/starbugs/%E9%9D%A2%E8%A9%A6-%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB%E4%B8%80%E5%AE%9A%E8%A6%81%E6%9C%83%E7%9A%84-js-%E8%A7%80%E5%BF%B5%E9%A1%8C-%E4%B8%AD%E8%8B%B1%E5%B0%8D%E7%85%A7%E4%B9%8B%E4%B8%8A%E7%AF%87-3b0a3feda14f)
 2. [https://blog.techbridge.cc/2019/02/23/javascript-this/](https://blog.techbridge.cc/2019/02/23/javascript-this/)
