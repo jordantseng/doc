@@ -1,12 +1,14 @@
-# 緩存機制
+# Memoization
 
-### 什麼是緩存（Memoization）
+### What is Memoization
 
-緩存是一種優化技術，用來緩存函式的輸出結果，以便在下一次使用相同的輸入參數調用該函式時，可以直接從緩存中返回已經計算過的結果，而不需要重新執行函式。
+Memoization is an optimization technique.
 
-### 實作 I
+It used to store the output of a function so that it can be directly returned from the cache when the function is called again with the same input parameters, without having to re-run the function.
 
-實作一個緩存機制，使其符合下面的代碼。
+### Implementation I
+
+Implement a memoization mechanism that fulfills the following code.
 
 ```jsx
 let callCount = 0;
@@ -19,30 +21,30 @@ memoizedFn(2, 3); // 5
 console.log(callCount); // 1
 ```
 
-#### 思路
+#### Approach
 
-1. 初始化一個緩存物件來存儲計算過的值。
-2. 每次調用`memoizedFn`函式時，將傳入的引數轉換為字符作為`key`。
-3. 檢查該`key`是否已經存在於緩存中。如果是，回傳相關聯的值。
-4. 否則，呼叫提供的函式，將輸出結果儲存在緩存中，並回傳輸出結果。
+1. Initialize a cache object to store calculated value.
+2. Convert the passed arguments into a string as key of cache object.
+3. Check if the key already exists in the cache. If so, return the associated value immediately.
+4. Otherwise, call the provided function, store the output in the cache, and return the output.
 
 ```jsx
 function memoize(cb) {
-  // 初始化一個緩存物件來存儲計算過的值
+  // Initialize a cache object to store calculated value
   const cache = {};
 
-  // 建立閉包，讓接下來呼叫的函式都能取得相同 cache 物件
+  // Create a closure that allows all subsequently called functions to access the same cache object
   return function (...args) {
-    // 將傳入的引數轉換為字符，並作為緩存物件的 key
+    // Convert the passed arguments into a string as key of cache object
     const key = JSON.stringify(args);
 
-    // 檢查該`key`是否已經存在於緩存中
+    // Check if the key already exists in the cache
     if (key in cache) {
-      // 如果是，回傳相關聯的值
+      // If so, return the associated value immediately
       return cache[key];
     }
 
-    // 否則，呼叫提供的函式，將輸出結果儲存在緩存中，並回傳輸出結果。
+    // Otherwise, call the provided function, store the output in the cache, and return the output
     const result = cb.apply(this, args);
 
     cache[key] = result;
@@ -52,7 +54,7 @@ function memoize(cb) {
 }
 ```
 
-### 實作 II
+### Implementation II
 
 實作一個緩存機制，引數可以接受任何型別（Primitive + Reference）。
 
