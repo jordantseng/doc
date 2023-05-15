@@ -310,6 +310,6 @@ promise.catch((reason) => {
      });
    ```
 
-參考來源:
+參考來源：
 
 1.  [https://www.fooish.com/javascript/ES6/Promise.html](https://www.fooish.com/javascript/ES6/Promise.html)
