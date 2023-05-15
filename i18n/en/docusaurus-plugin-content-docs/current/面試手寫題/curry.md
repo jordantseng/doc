@@ -1,8 +1,8 @@
-# 柯里化
+# Curry
 
-### 什麼是柯里化（Currying）
+### What is currying
 
-柯里化是 functional programming 的一項技術，它可以將擁有多個引數的函式轉換成函式序列。
+Currying is a powerful technique in functional programming that transforms a function with multiple arguments into a sequence of functions.
 
 ```jsx
 function sum(a, b) {
@@ -15,9 +15,9 @@ curriedSum(1, 2); // 3
 curriedSum()(1)(2); // 3
 ```
 
-### 實際應用
+### Pratical Applications
 
-**1. 可重複使用的功能函式**
+**1. Reusable utility functions**
 
 ```jsx
 const add = (a) => (b) => a + b;
@@ -28,7 +28,7 @@ console.log(add1(2)); // 3
 console.log(add1(3)); // 5
 ```
 
-**2. 事件處理**
+**2. Event handling**
 
 ```jsx
 const button = document.getElementById('button');
@@ -37,7 +37,7 @@ const handleButtonClick = (id) => (event) => console.log(`Button Id: ${id}, ${ev
 button.addEventListener('click', handleButtonClick(3));
 ```
 
-**3. 客製化 API**
+**3. Customizing API calls**
 
 ```jsx
 const apiCall = (baseUrl) => (endPoint) => fetch(`${baseUrl}${endPoint}`);
@@ -45,7 +45,7 @@ const jsonPlaceholderApi = apiCall('https://jsonplaceholder.typicode.com');
 const getUsers = jsonPlaceholderApi('/users');
 ```
 
-**4. 函式組合**
+**4. Functional composition**
 
 ```jsx
 const compose = (f, g) => (x) => f(g(x));
@@ -57,9 +57,9 @@ const doubleThenSquare = compose(square, double);
 console.log(doubleThenSquare(3)); // 36
 ```
 
-### 實作 I
+### Implementation
 
-給定一個函式 `fn`，回傳該函式的柯里化版本。
+Given a function `fn`, return a curried version of that function.
 
 ```jsx
 const fn = (a, b) => a + b;
@@ -70,36 +70,39 @@ curriedFn(1, 2); // 3
 curriedFn()(1)(2); // 3
 ```
 
-### 思路
+### Approach
 
-1. `curry` 函式將會回傳一個新的函式 `curried`，該函式接收任意數量的參數。
-2. 檢查 `curried` 的參數數量是否大於或等於 `fn` 函式的參數數量。
-3. 如果是，那麼呼叫 `fn` 函式並將 `curried` 的參數傳遞給它。
-4. 如果不是，那麼回傳一個新的函式，該函式接收其他參數，並將 `curried` 的參數與它們傳入 `curried` 函式。
-5. 遞迴呼叫 `curried` 函式，直到 `curried` 函式的參數數量大於或等於 `fn` 函式的參數數量，然後回傳最終的結果。
+1. The `curry` function will return a new function called `curried`, which takes any number of arguments.
+2. Check if the number of arguments in `curried` is greater than or equal to the number of arguments in the `fn` function.
+3. If it is, then call the `fn` function and pass the arguments of curried to it.
+4. If it is not, then return a new function that accepts other arguments and passes the arguments of curried along with them to the `curried` function.
+5. Recursively call the `curried` function until the number of arguments is greater than or equal to the number of arguments in the `fn` function, then return the final result.
 
 ```jsx
 function curry(fn) {
-  // curry 函式將會回傳一個新的函式 curried，該函式接收任意數量的參數
+  // return a new function called curried, which takes any number of arguments
   return function curried(...args) {
-    // 檢查 curried 的參數數量是否大於或等於 fn 函式的參數數量
+    // Check if the number of arguments in curried is greater than
+    // or equal to the number of arguments in the fn function
     if (args.length >= fn.length) {
-      // 如果是，那麼呼叫 fn 函式並將 curried 的參數傳遞給它
+      // If it is, then call the fn function and pass the arguments of curried to it
       return fn.apply(this, args);
     }
 
-    // 如果不是，那麼回傳一個新的函式，該函式接收其他參數，並將 curried 的參數與它們傳入 curried 函式
+    // If it is not, then return a new function that accepts other arguments
+    // and passes the arguments of curried along with them to the curried function
     return function (...otherArgs) {
-      // 遞迴呼叫 curried 函式，直到 curried 函式的參數數量大於或等於 fn 函式的參數數量
+      // Recursively call the curried function until the number of arguments is greater than
+      // or equal to the number of arguments in the fn function
       return curried(...args, ...otherArgs);
     };
   };
 }
 ```
 
-### 實作 II
+### Implementation II
 
-給定一個函式 `fn`，回傳該函式的柯里化版本。
+Given a function `fn`, return a curried version of that function.
 
 ```jsx
 const sum = (...args) => args.reduce((acc, val) => acc + val, 0);
@@ -129,6 +132,6 @@ function curry(fn) {
 }
 ```
 
-參考來源：
+Reference：
 
 1. [https://leetcode.com/problems/curry/description/](https://leetcode.com/problems/curry/description/)
