@@ -1,34 +1,40 @@
-# 實作 Debounce
+# Debounce
 
 ### TL;DR
 
-- debounce 是指只有當事件在一定時間內沒有連續觸發時，函式才會執行。
-- 與 throttle（節流）都是為了減少短時間內會重複觸發的函示次數，藉此優化效能。
+- **Debounce** and **throttle** both aim to reduce the frequency of repeated function calls, thereby optimizing performance.
+- Debounce ensures a function is executed only after a certain period of time has passed without the event being continuously triggered.
 
-### 什麼是防抖
+### What is debounce
 
-debounce 中文又稱為**防抖**，只有當事件在一定時間內沒有連續觸發時，函式才會執行。
+Debounce is a technique used to control the frequency of function calls or event triggers.
 
-debounce 函式接收兩個參數
+It ensures that a function is executed only after a certain period of time has passed without the event being continuously triggered.
 
-- `callback`：要執行的回調函式
-- `delay`：要延遲的毫秒數
+The debounce function takes two parameters:
 
-防抖經常被應用在 TypeHead，來避免每打一個字就呼叫一次 API。當使用者停止打字，才在`delay`毫秒後呼叫一次`callback`，減少 API 發送的次數。
+- `callback`: The function to be executed.
+- `delay`: The delay in milliseconds.
 
-### 實作
+### Practical Applications
+
+Debounce is commonly applied in scenarios where you want to control the frequency of function execution based on event triggers.
+
+For example, in a TypeHead implementation, debounce can be used to delay API calls until the user has finished typing or paused for a certain duration, preventing excessive or unnecessary API requests.
+
+### Implementation
 
 ```jsx
 function debounce(callback, delay) {
   let timerID;
 
   return function (...args) {
-    // 若事件連續觸發，取消上一次的 timerID
+    // If the event is triggered continuously, cancel the previous timerID
     clearTimeout(timerID);
 
-    // 給予新的 timerID
+    // Assign a new timerID
     timerID = setTimeout(() => {
-      // 在 delay 秒後，呼叫 callback
+      // Call the callback after the specified delay
       callback.apply(this, args);
     }, delay);
   };
