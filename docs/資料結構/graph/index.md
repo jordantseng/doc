@@ -77,7 +77,7 @@ function bfs(graph, src) {
     const current = queue.shift();
     console.log(current);
     for (const neighbor of graph[current]) {
-      queue.push(graph, neighbor);
+      queue.push(neighbor);
     }
   }
 }
