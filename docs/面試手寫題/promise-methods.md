@@ -57,7 +57,7 @@ Promise.myAll = function (promises) {
           reject(error);
         })
         .finally(() => {
-          if (output.length === count) resolve(output);
+          if (promises.length === count) resolve(output);
         });
     });
   });

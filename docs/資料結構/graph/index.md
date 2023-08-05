@@ -32,6 +32,8 @@ const undirectedGraph = {
 
 ### Directed Graph 遍歷演算法
 
+![alt text](./Screenshot%202023-08-05%20at%2012.41.58%20PM.png)
+
 #### DFS
 
 - e = # of edges
@@ -51,9 +53,7 @@ function dfs(graph, src) {
     }
   }
 }
-```
 
-```jsx
 // recursive
 function dfs(graph, src) {
   console.log(src);
@@ -106,9 +106,7 @@ const dfs = (graph, src) => {
     }
   }
 };
-```
 
-```jsx
 // recursive
 function dfs(graph, src) {
   const visited = new Set();
