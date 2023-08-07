@@ -63,15 +63,14 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'FrontendWiz',
-        items: [
-          {
-            type: 'doc',
-            docId: 'README',
-            position: 'left',
-            label: 'Wizard book',
+        logo: {
+          src: './img/logo-light.svg',
+          srcDark: './img/logo-dark.svg',
+          style: {
+            height: 44,
           },
-          // { to: '/blog', label: 'Blog', position: 'left' },
+        },
+        items: [
           {
             type: 'localeDropdown',
             position: 'right',
@@ -81,15 +80,6 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Wizard book',
-                to: '/',
-              },
-            ],
-          },
           {
             title: 'John',
             items: [
