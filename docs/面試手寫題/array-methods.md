@@ -61,3 +61,23 @@ Array.prototype.myEvery = function (callback) {
   return true;
 };
 ```
+
+### Array.flat
+
+```jsx
+Array.prototype.myFlat = function (depth = 1) {
+  function flatten(arr, depth) {
+    return arr.reduce((acc, val) => {
+      if (Array.isArray(val) && depth > 0) {
+        acc.push(...flatten(val, depth - 1));
+      } else {
+        acc.push(val);
+      }
+
+      return acc;
+    }, []);
+  }
+
+  return flatten(this, depth);
+};
+```
