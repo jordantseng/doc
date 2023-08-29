@@ -95,14 +95,16 @@ function bfs(graph, src) {
 ```jsx
 // iterative
 const dfs = (graph, src) => {
-  const visited = new Set();
+  const visited = new Set(src);
   const stack = [src];
   while (stack.length > 0) {
     const current = stack.pop();
     console.log(current);
-    visited.add(current);
     for (const neighbor of graph[current]) {
-      if (!visited.has(neighbor)) stack.push(neighbor);
+      if (!visited.has(neighbor)) {
+        visited.add(neighbor);
+        stack.push(neighbor);
+      }
     }
   }
 };
@@ -110,11 +112,12 @@ const dfs = (graph, src) => {
 // recursive
 function dfs(graph, src) {
   const visited = new Set();
-  const findPath = (src) => {
-    if (visited.has(src)) return;
-    console.log(src);
-    visited.add(src);
-    for (const neighbor of graph[src]) {
+
+  const findPath = (node) => {
+    if (visited.has(node)) return;
+    console.log(node);
+    visited.add(node);
+    for (const neighbor of graph[node]) {
       findPath(neighbor);
     }
   };
@@ -131,14 +134,16 @@ function dfs(graph, src) {
 
 ```jsx
 const bfs = (graph, src) => {
-  const visited = new Set();
+  const visited = new Set(src);
   const queue = [src];
   while (queue.length > 0) {
     const current = queue.shift();
     console.log(current);
-    visited.add(current);
     for (const neighbor of graph[current]) {
-      if (!visited.has(neighbor)) queue.push(neighbor);
+      if (!visited.has(neighbor)) {
+        visited.add(neighbor);
+        queue.push(neighbor);
+      }
     }
   }
 };
