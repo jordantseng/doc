@@ -1,6 +1,6 @@
 # Selection Sort
 
-### Selection Sort 原理:
+### Selection Sort 步驟:
 
 1. 從待排序的數列中找到最小的元素。
 

@@ -1,6 +1,6 @@
 # Quick Sort
 
-### Quick Sort 原理:
+### Quick Sort 步驟:
 
 1. 選擇樞紐: 從數列中選擇一個元素作為樞紐 (pivot)。該選擇會影響排序的效率，因此選擇一個適當的 pivot 對於算法的性能至關重要。
 
