@@ -28,8 +28,6 @@ Space:
 
 ### 實作 I
 
-較簡單的版本，但使用較多的空間。
-
 ```jsx
 function quickSort(array) {
   if (array.length < 2) {
@@ -55,7 +53,7 @@ function quickSort(array) {
 
 ### 實作 II
 
-原地交換版本，使用較少的空間。
+in-place sorting
 
 ```jsx
 function quickSort(arr, start = 0, end = arr.length - 1) {
