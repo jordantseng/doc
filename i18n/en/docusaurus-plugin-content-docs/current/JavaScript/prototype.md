@@ -6,7 +6,6 @@
 - Use the `__proto__` property or the `Object.getPrototypeOf()` method to get an object's prototype.
 - A constructor function is a type of function used to create objects when called with the `new` keyword.
 - `__proto__` is a property of objects that points to their prototype, while `prototype` is a property of functions that is used to define the properties and methods inherited by objects created with that function.
-- If `object` was created with `Fn` as its constructor function, then `object.__proto__ === Fn.prototype`.
 
 ### What is prototype
 
