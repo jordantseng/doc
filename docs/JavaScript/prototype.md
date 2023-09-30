@@ -170,7 +170,8 @@ function myNew(constructorFn, ...args) {
   const result = constructorFn.apply(obj, args);
 
   // 4. 檢查建構函式是否回傳物件，如果是，回傳該物件；如果不是，則回傳一開始建立的物件
-  return typeof result === 'object' ? result : obj;
+  // 這邊會使用 instanceof 而不是 typeof 的原因是，typeof null === 'object'
+  return result instanceof Object ? result : obj;
 }
 
 function Person(name) {

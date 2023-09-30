@@ -184,7 +184,7 @@ function myNew(constructorFn, ...args) {
   // 4. If the constructor function returns an object
   // If it does, new keyword will return that object
   // If it doesn't, the new keyword will return the newly created empty object.
-  return typeof result === 'object' ? result : obj;
+  return result instanceof Object === 'object' ? result : obj;
 }
 
 function Person(name) {
