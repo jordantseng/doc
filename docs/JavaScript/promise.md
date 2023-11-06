@@ -8,7 +8,7 @@
 
 ### 什麼是 Promise
 
-在 JavaScript 中，Promise 是一個**等待非同步操作完成的物件**，當事件完成時，Promise 根據操作結果是成功、或者失敗，做相對應的處理。它讓開發人員撰寫非同步程式碼時，看起來更像同步程式碼，使程式碼更容易理解與維護。
+Promise 是一個**等待非同步操作完成的物件**，當事件完成後，根據操作做相對應的處理。它讓開發人員撰寫非同步程式碼時，看起來更像同步程式碼，使程式碼更容易理解與維護。
 
 Promise 只會處於以下三種狀態之一：
 
@@ -23,19 +23,13 @@ Promise 可以使用 `Promise` 建構函式來建立，該建構函式需要一�
 **executor** 函式有兩個回調函式作為參數：
 
 1. `resolve(value)`：當被呼叫時，該函式會將 Promise 改為 fulfilled 狀態並傳入一個值。
-2. **reject(error)**：當被呼叫時，該函式會將 Promise 改為 rejected 狀態並傳入一個錯誤訊息。
+2. `reject(error)`：當被呼叫時，該函式會將 Promise 改為 rejected 狀態並傳入一個錯誤訊息。
 
-Promise 提供了三個主要的方法：
+Promise 可以使用以下的方法，定義一系列相互依賴的異步操作：
 
-1. **then(fulfilledFn, rejectedFn)：**當 Promise 被 `fulfilled` 後，呼叫 fulfilledFn、當 Promise 被 `rejected` 後，呼叫 rejectedFn，最後回傳一個新的 **fulfilled** Promise。
-2. **catch(rejectedFn)：**當 Promise 被 `rejected` 後，呼叫 rejectedFn，回傳一個新的 `fulfilled` Promise。
-3. **finally(callback)：**不論 Promise 被 `fulfilled` 或 `rejected` ，都會呼叫 callback，並回傳一個新的 `fulfilled` 或 `reject` 的 Promise。
-
-Promise 可以使用以下的方法鏈接起來，讓開發人員定義一系列相互依賴的異步操作。
-
-1. `then(fulfilledFn, rejectedFn)`：如果 Promise 被 fulfilled，則呼叫 `fulfilledFn`，如果 Promise 被 rejected，則呼叫 `rejectedFn`，並返回一個新的 fulfilled Promise。
-2. `catch(rejectedFn)`：如果 Promise 被 rejected，則呼叫 `rejectedFn`，並返回一個新的 fulfilled Promise。
-3. `finally(callback)`：不論 Promise 是否被 fulfilled 或 rejected，都會呼叫回調函式，並返回一個新的 fulfilled 或 rejected Promise。
+1. `then(fulfilledFn, rejectedFn)：` 當 Promise 被 fulfilled 後，呼叫 fulfilledFn；當 Promise 被 rejected 後，呼叫 rejectedFn，最後回傳一個新的 fulfilled Promise。
+2. `catch(rejectedFn)：` 當 Promise 被 rejected 後，呼叫 rejectedFn，回傳一個新的 fulfilled Promise。
+3. `finally(callback)：` 不論 Promise 被 fulfilled 或 rejected，都會呼叫 callback，並回傳一個新的 fulfilled 或 rejected 的 Promise。
 
 ```js
 const promise = new Promise(executor);
@@ -68,7 +62,7 @@ promise
 
 ### 為什麼要使用 Promise
 
-在 ES6 以前，JavaScript 處理異步的方式大多都是透過回調函式（callback），但 callback 的寫法存在一個很大的問題，當需要處理多個異步操作時，程式碼會不斷往內嵌套，導致可讀性非常差，也被稱為 callback hell。
+在 ES6 以前，JavaScript 處理異步的方式大多都是透過回調函式，但當需要處理多個異步操作時，回調函式的寫法會不斷往內嵌套，導致可讀性非常差，也被稱為 callback hell。
 
 ```js
 const waitOneSecond = (cb) => {
@@ -89,7 +83,7 @@ waitOneSecond(() => {
 });
 ```
 
-如果我們先把上面這段程式碼改寫成 Promise 的話，會發現可讀性大大的提升。
+如果把上面這段程式碼改寫成 Promise 的話，可讀性將會大大的提升。
 
 ```jsx
 const waitOneSecond = () => {
@@ -119,7 +113,7 @@ waitOneSecond()
 
 `Promise.race` 接受一個 Promise 陣列作為引數，並回傳一個新的 Promise。
 
-新的 Promise 會返回陣列中**第一個狀態改變**（fulfilled 或 rejected） 的 Promise 結果。
+新的 Promise 會返回**第一個狀態改變** (fulfilled 或 rejected) 的結果。
 
 ```jsx
 const p1 = new Promise((resolve, reject) => {
@@ -143,7 +137,7 @@ Promise.race([p1, p2])
 
 `Promise.any` 接受一個 Promise 陣列作為引數，並回傳一個新的 Promise。
 
-新的 Promise 會返回陣列中**第一個狀態被 fulfilled** 的 Promise 結果。 如果全部 Promise 都被 rejected ，則返回 [AggregateError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError)。
+新的 Promise 會返回**第一個狀態被 fulfilled** 的結果。 如果全部 Promise 都被 rejected ，則返回 [AggregateError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError)。
 
 ```js
 const p1 = new Promise((resolve, reject) => {
@@ -163,7 +157,7 @@ Promise.any([p1, p2]).then(function (value) {
 
 `Promise.all` 接受一個 Promise 陣列作為引數，並回傳一個新的 Promise。
 
-當陣列中**所有**的 Promise 被 fulfilled，新的 Promise 會返回一個**陣列**，其值依序為 fulfilled 的結果。
+當**所有**的 Promise 被 fulfilled，新的 Promise 會返回一個**陣列**，依序為 fulfilled 的結果。
 
 ```js
 const p1 = Promise.resolve(1);
@@ -177,7 +171,7 @@ Promise.all([p1, p2, p3]).then(function (values) {
 });
 ```
 
-當陣列中其中一個 Promise 被 rejected 後，新的 Promise 就會立即返回該 Promise rejected 的結果。
+當陣列中其中一個 Promise 被 rejected 後，新的 Promise 就會立即返回該 rejected 的結果。
 
 ```js
 const p1 = Promise.resolve(1);
@@ -198,9 +192,9 @@ Promise.all([p1, p2])
 
 `Promise.allSettled` 接受一個 Promise 陣列作為引數，並回傳一個新的 Promise。
 
-當陣列中所有的 Promise 狀態都改變（不論是 fulfilled 或 rejected），則回傳一個物件陣列，其中每個物件包含 Promise 的狀態和對應的值。
+當陣列中所有的 Promise 狀態都改變，則回傳一個物件陣列，其中每個物件包含狀態和對應的值。
 
-- `status`：表示 Promise 的狀態，可以是 "fulfilled" 或 "rejected"
+- `status`：表示 Promise 的狀態，可以是 fulfilled 或 rejected。
 - `value` 或 `reason`：Promise fulfilled 的結果或 rejected 的原因。
 
 ```jsx
@@ -223,7 +217,7 @@ Promise.allSettled([p1, p2, p3, p4]).then((values) => {
 
 ### Promise.resolve(value)
 
-將一個物件轉型為 `fulfilled` 的 Promise（如果它不是一個 Promise）。
+將一個值轉型為 fulfilled 的 Promise。
 
 ```jsx
 const promise = Promise.resolve('Hello World');
@@ -234,7 +228,7 @@ promise.then((value) => {
 
 ### Promise.reject(reason)
 
-將一個物件轉型為 `rejected` 的 Promise（如果它不是一個 Promise）。
+將一個值轉型為 `rejected` 的 Promise。
 
 ```jsx
 const promise = Promise.reject('Hello World');
@@ -295,7 +289,7 @@ promise.catch((reason) => {
    // then:  Error: error!!!
    ```
 
-   如果想要讓 Promise 被 reject 並進入 catch 區塊，則需要在第一個 then 的回調函式中明確地 throw Error 物件。
+   如果想要讓 Promise 被 rejected 並進入 catch 區塊，則需要在第一個 then 的回調函式中明確地 throw Error 物件。
 
    ```jsx
    Promise.resolve()

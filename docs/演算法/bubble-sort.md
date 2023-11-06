@@ -25,14 +25,24 @@ Space: `O(1)`
 ### 實作 I
 
 ```jsx
-function bubbleSort(array) {
-  for (let i = 0; i < array.length; i += 1) {
-    for (let j = 0; j < array.length - 1 - i; j += 1) {
-      if (array[j] > array[j + 1]) {
-        swap(array, j, j + 1);
+function bubbleSort(nums) {
+  let isSorted = false;
+  for (let i = 0; i < nums.length; i += 1) {
+    isSorted = true;
+
+    for (let j = 0; j < nums.length - 1 - i; j += 1) {
+      if (nums[j] > nums[j + 1]) {
+        swap(nums, j, j + 1);
+        isSorted = false;
       }
     }
+
+    if (isSorted) {
+      return nums;
+    }
   }
+
+  return nums;
 }
 
 function swap(array, i, j) {

@@ -129,6 +129,26 @@ function curry(fn) {
 }
 ```
 
+### 實作 III
+
+```jsx
+console.log(add(5)()); // 5
+console.log(add(5)(3)); // fn
+console.log(add(5)(3)()); // 8
+```
+
+```jsx
+function add(a) {
+  return (b) => {
+    if (b === undefined) {
+      return a;
+    }
+
+    return add(a + b);
+  };
+}
+```
+
 參考來源：
 
 1. [https://leetcode.com/problems/curry/description/](https://leetcode.com/problems/curry/description/)
