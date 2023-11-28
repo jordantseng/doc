@@ -65,7 +65,7 @@ CORS 又分為**簡單請求**和**預檢請求**兩種類型。
 // Access-Control-Allow-Origin:＊
 ```
 
-1. 預檢請求 (Preflight Requests)
+2. 預檢請求 (Preflight Requests)
 
 - 只要請求不符合簡單請求的條件，瀏覽器將會自動發送一個額外的預檢請求。
 
@@ -85,13 +85,14 @@ TL;DR:**請後端工程師在伺服器端做** CORS 標頭的設定。
 
 簡單請求:
 
-1. 在伺服器端的 `GET` / `HEAD` / `POST` 方法中加入 `Access-Control-Allow-Origin` 標頭。
+- 在伺服器端的 `GET` / `HEAD` / `POST` 方法中加入 `Access-Control-Allow-Origin` 標頭。
 
 非簡單請求:
 
-1. 在伺服器端實作 `OPTIONS` 方法來處理預檢請求。
-2. 在 `OPTIONS` 回應中，加入 `Access-Control-Allow-Methods` 和 `Access-Control-Allow-Headers` 標頭。
-3. 在處理實際請求的後端方法回應中，加入 `Access-Control-Allow-Origin` 標頭。
+- 在伺服器端實作 `OPTIONS` 方法來處理預檢請求。
+- 在 `OPTIONS` 回應中，加入 `Access-Control-Allow-Methods` 和 `Access-Control-Allow-Headers` 標頭。
+
+- 在處理實際請求的後端方法回應中，加入 `Access-Control-Allow-Origin` 標頭。
 
 參考來源:
 
